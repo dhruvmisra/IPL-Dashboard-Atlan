@@ -1,0 +1,17 @@
+@import "./variables.scss";
+
+$theme-colors: (
+	"primary": #0c19d3,
+	"light": $light,
+	"accent": $accent
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.heading {
+  text-align: center;
+
+  p {
+    color: $secondary;
+  }
+}

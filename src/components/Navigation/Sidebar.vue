@@ -1,6 +1,10 @@
 <template>
 	<div class="side-bar">
-		<h5 class="my-4">IPL Dashboard</h5>
+		<h5 class="heading">
+			<img class="ipl-logo" src="@/assets/ipl-logo.png" alt="IPL logo">
+			<br>
+			<span>IPL Dashboard</span>
+		</h5>
 		<ul class="side-list">
 			<router-link 
 				tag="li" 
@@ -50,9 +54,18 @@ export default {
 	display: flex;
 	flex-direction: column;
 	padding: 20px 0;
-	text-align: center;
+	// text-align: center;
 	box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
 	z-index: 10;
+
+	.heading {
+
+		.ipl-logo {
+			width: 70px;
+			margin-bottom: 10px;
+			filter: drop-shadow(1px 1px 0 white) drop-shadow(-0.5px -0.5px 0 white);
+		}
+	}
 
 	.side-list {
 		list-style: none;
@@ -60,7 +73,7 @@ export default {
 		margin-top: 30px;
 
 		.side-item {
-			padding: 20px 0;
+			padding: 20px 10px;
 			color: rgba(255, 255, 255, 0.5);
 			cursor: pointer;
 
@@ -79,6 +92,14 @@ export default {
 					width: 5px;
 					background: $accent;
 				}
+			}
+		}
+	}
+
+	@media (max-width: 624px) {
+		.heading {
+			span {
+				display: none;
 			}
 		}
 	}

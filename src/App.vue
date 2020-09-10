@@ -2,7 +2,9 @@
   <div id="app">
 		<Sidebar />
     <div class="main-content">
-    	<router-view :matches="matches" />
+			<transition name="fade" mode="out-in">
+    		<router-view :matches="matches" :key="$route.name" />
+			</transition>
     </div>
   </div>
 </template>
@@ -58,5 +60,12 @@ export default {
 	flex: 5;
 	width: 100%;
 	padding: 20px;
+}
+.fade-enter-active, .fade-leave-active {
+	transition: all 150ms ease-out;
+}
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+	transform: translateX(-20px);
 }
 </style>

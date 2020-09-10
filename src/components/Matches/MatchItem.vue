@@ -20,6 +20,16 @@
 			<div v-else>
 				<div class="info-item accent">Match was a Tie</div>
 			</div>
+			<div class="row">
+				<div class="date">
+					<img src="@/assets/icons/calendar.svg">
+					<span>{{ match.date }}</span>
+				</div>
+				<div class="location">
+					<img src="@/assets/icons/location.svg">
+					<span>{{ match.city }}</span>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -46,6 +56,8 @@ export default {
 	width: 100%;
 	max-width: 380px;
 	position: relative;
+	display: flex;
+	flex-direction: column;
 	margin: 10px;
 	padding: 20px;
 	border-radius: $radius;
@@ -58,8 +70,8 @@ export default {
 
 	.season-text {
 		position: absolute;
-		top: -0.3em;
-		left: 5px;
+		top: -0.2em;
+		left: 10px;
 		font-size: 5em;
 		font-weight: bold;
 		opacity: 0.1;
@@ -112,7 +124,8 @@ export default {
 	}
 
 	.info-container {
-	
+		margin-top: auto;
+
 		.info-item {
 			width: fit-content;
 			text-align: center;
@@ -138,6 +151,22 @@ export default {
 				background: rgba($danger, 0.1);
 			}
 		}
+		.location, .date {
+			width: fit-content;
+
+			img {
+				width: 15px;
+				margin: 0 5px;
+				opacity: 0.3;
+			}
+			span {
+				color: lighten($secondary, 30%);
+				font-size: 0.8em;
+			}
+		}
+		.location {
+			margin-left: auto;
+		}
 	}
 
 	@media (max-width: 420px) {
@@ -150,6 +179,13 @@ export default {
 			}
 			.team-container {
 				width: 100%;
+			}
+		}
+		.info-container {
+			.location, .date {
+				width: 100%;
+				text-align: center;
+				margin: 3px auto;
 			}
 		}
 	}

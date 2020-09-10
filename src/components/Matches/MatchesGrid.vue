@@ -1,11 +1,12 @@
 <template>
-	<transition-group tag="div" class="matches-grid" name="grid" mode="out-in">
-		<MatchItem 
-			:match="match" 
-			v-for="match in matchesToRender" 
-			:key="match.id" 
-			v-show="matchesSearch(match)"
-		/>
+	<transition-group tag="div" class="matches-grid" name="grid" mode="in-out">
+		<!-- <div class="matches-grid"> -->
+			<MatchItem 
+				:match="match" 
+				v-for="match in matchesToRender" 
+				:key="match.id"
+			/>
+		<!-- </div> -->
 	</transition-group>
 </template>
 
@@ -15,7 +16,7 @@ import MatchItem from './MatchItem';
 export default {
 	props: {
 		matches: Array,
-		searchQuery: String
+		teamQuery: String
 	},
 	components: {
 		MatchItem
@@ -26,11 +27,14 @@ export default {
 	}),
 	computed: {
 		matchesToRender() {
-			return this.matches.slice(0, this.renderedCount);
+			let sliced = this.matches.slice(0, this.renderedCount);
+			let teamFiltered = sliced.filter(match => match.team1.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1 || match.team2.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1);
+			// let sorted = 
+			return teamFiltered;
 		}
 	},
 	watch: {
-		searchQuery: function(newVal, oldVal) {
+		teamQuery: function(newVal, oldVal) {
 			if(newVal == "") {
 				this.renderedCount = 10;
 			} else {
@@ -55,7 +59,7 @@ export default {
 			}
 		},
 		matchesSearch(match) {
-			let regex = new RegExp(this.searchQuery, "i");
+			let regex = new RegExp(this.teamQuery, "i");
 			if(regex.test(match.team1) || regex.test(match.team2) || regex.test(match.season) || regex.test(match.result)) {
 				return true;
 			}
@@ -73,16 +77,20 @@ export default {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	// padding: 20px;
 }
 .grid-enter-active, .grid-leave-active {
-	transition: transform 500ms ease-out, opacity 200ms ease-out;
+	transition: all 500ms ease-in-out;
 }
 .grid-leave-active {
 	position: absolute;
+	display: none;
+}
+.grid-move {
+	transition: transform 500ms;
 }
 .grid-enter, .grid-leave-to {
 	opacity: 0;
+	transform: translateY(10px);
 }
 
 </style>

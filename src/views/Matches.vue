@@ -1,17 +1,7 @@
 <template>
 	<div id="matches">
 		<h3>Matches</h3>
-		<div class="form-group my-3">
-			<label for="search" class="text-secondary">Search</label>
-			<input
-				class="form-control"
-				type="text"
-				name="search"
-				id="search"
-				v-model="searchText"
-				placeholder="Search a team or a year"
-			/>
-		</div>
+		<AutocompleteSearch class="my-4" :items="teams" placeholder="Search teams" @textChanged="teamQuery = $event" />
 		<!-- <div class="form-group my-3">
 			<div class="">
 				<label for="sort" class="text-secondary">Sort By</label>
@@ -21,13 +11,14 @@
 			</div>
 		</div> -->
 
-		<MatchesGrid :matches="matches" :searchQuery="searchQuery" />
+		<MatchesGrid :matches="matches" :teamQuery="teamQuery" />
 
 	</div>
 </template>
 
 <script>
 import MatchesGrid from "@/components/Matches/MatchesGrid";
+import AutocompleteSearch from "@/components/Matches/AutocompleteSearch";
 
 export default {
 	props: {
@@ -35,10 +26,11 @@ export default {
 	},
 	components: {
 		MatchesGrid,
+		AutocompleteSearch
 	},
 	data: () => ({
-		debouncedInput: "",
-		timeout: null,
+		teams: [],
+		teamQuery: "",
 		currentSorting: null,
 		sortings: [
 			{
@@ -51,24 +43,15 @@ export default {
 			},
 		]
 	}),
-	computed: {
-		searchText: {
-			get() {
-				return this.debouncedInput;
-			},
-			set(val) {
-				if (!!(this.timeout)) clearTimeout(this.timeout);
-				this.timeout = setTimeout(() => {
-					this.debouncedInput = val;
-				}, 300);
-			}
-		},
-		searchQuery() {
-			return this.searchText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-		}
-	},
 	created() {
 		this.currentSorting = this.sortings[0];
+
+		let teams = {};
+		for(let match of this.matches) {
+			teams[match.team1] = null;
+			teams[match.team2] = null;
+		}
+		this.teams = Object.keys(teams);
 	}
 };
 </script>

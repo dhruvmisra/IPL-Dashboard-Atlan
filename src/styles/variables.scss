@@ -2,9 +2,12 @@
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
 
-$accent: #073C5E;
+$primary: #1F29B6;
+$accent: orange;
+$success: #04CA53;
 $light: #F4F7FF;
+$danger: #F02D76;
 
 $transition: all 300ms ease-out;
-$radius: 10px;
+$radius: 5px;
 $shadow: 0 5px 25px rgba(0, 0, 0, 0.07);

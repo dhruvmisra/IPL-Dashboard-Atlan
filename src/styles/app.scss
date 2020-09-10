@@ -1,9 +1,11 @@
 @import "./variables.scss";
 
 $theme-colors: (
-	"primary": #0c19d3,
+	"primary": $primary,
+	"accent": $accent,
 	"light": $light,
-	"accent": $accent
+	"success": $success,
+	"danger": $danger,
 );
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
@@ -14,4 +16,9 @@ $theme-colors: (
   p {
     color: $secondary;
   }
+}
+
+.form-control, .form-select {
+	border: none;
+	box-shadow: 0 2px 5px rgba($primary, 0.1) !important;
 }

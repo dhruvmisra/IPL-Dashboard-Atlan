@@ -1,7 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2f215808a54d46dea29b",
-    "url": "/IPL-Dashboard-Atlan/css/app.54e68bef.css"
+    "revision": "187b47628e0f40c54af6f495be75505c",
+    "url": "/IPL-Dashboard-Atlan/404.html"
+  },
+  {
+    "revision": "72e17e96932fd7b6853d",
+    "url": "/IPL-Dashboard-Atlan/css/app.c7b552bc.css"
   },
   {
     "revision": "25cd1d254a61fc384b70141abbdad407",
@@ -56,16 +60,28 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IPL-Dashboard-Atlan/img/Sunrisers-Hyderabad.ccad15fb.png"
   },
   {
-    "revision": "dd0a0b81f1bf2953b1fb77d01cd506eb",
+    "revision": "50070f67cfbcc4e817c0d91fcc08885b",
+    "url": "/IPL-Dashboard-Atlan/img/calendar.50070f67.svg"
+  },
+  {
+    "revision": "92d4cc8b77d27b092311266363b3abc4",
+    "url": "/IPL-Dashboard-Atlan/img/ipl-logo.92d4cc8b.png"
+  },
+  {
+    "revision": "6719431d6075f3639ff5bd84a5a34b79",
+    "url": "/IPL-Dashboard-Atlan/img/location.6719431d.svg"
+  },
+  {
+    "revision": "10acae643807e07d1c496d6394e40edd",
     "url": "/IPL-Dashboard-Atlan/index.html"
   },
   {
-    "revision": "2f215808a54d46dea29b",
-    "url": "/IPL-Dashboard-Atlan/js/app.b15fc6c9.js"
+    "revision": "72e17e96932fd7b6853d",
+    "url": "/IPL-Dashboard-Atlan/js/app.144a3a1d.js"
   },
   {
-    "revision": "4fc4a83f31ae6ec9f171",
-    "url": "/IPL-Dashboard-Atlan/js/chunk-vendors.1e1459d6.js"
+    "revision": "ccdcf0c907235942bd56",
+    "url": "/IPL-Dashboard-Atlan/js/chunk-vendors.89004844.js"
   },
   {
     "revision": "0d2bcad86108e38aa39dcffcd6ee1376",

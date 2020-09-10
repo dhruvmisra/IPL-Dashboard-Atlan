@@ -44,7 +44,7 @@ export default {
 <style lang="scss">
 .match-card {
 	width: 100%;
-	max-width: 350px;
+	max-width: 380px;
 	position: relative;
 	margin: 10px;
 	padding: 20px;

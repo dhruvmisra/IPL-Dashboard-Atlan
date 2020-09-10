@@ -55,7 +55,7 @@ export default {
 	overflow: auto;
 	background: $light;
 	color: black;
-	flex: 4;
+	flex: 5;
 	width: 100%;
 	padding: 20px;
 }

@@ -1,6 +1,6 @@
 <template>
 	<div id="matches">
-		<h3 class="text-primary">Matches</h3>
+		<h3>Matches</h3>
 		<div class="form-group my-3">
 			<label for="search" class="text-secondary">Search</label>
 			<input
@@ -12,17 +12,17 @@
 				placeholder="Search a team or a year"
 			/>
 		</div>
-		<div class="form-group my-3">
+		<!-- <div class="form-group my-3">
 			<div class="">
 				<label for="sort" class="text-secondary">Sort By</label>
 				<select class="form-select w-25" name="sort" id="sort" v-model="currentSorting">
 					<option :value="sorting" v-for="sorting in sortings" :key="sorting.parameter">{{ sorting.parameter }}</option>
 				</select>
 			</div>
-		</div>
+		</div> -->
 
 		<MatchesGrid :matches="matches" :searchQuery="searchQuery" />
-	
+
 	</div>
 </template>
 

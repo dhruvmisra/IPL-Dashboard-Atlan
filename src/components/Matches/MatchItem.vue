@@ -70,13 +70,13 @@ export default {
 
 	.season-text {
 		position: absolute;
-		top: -0.2em;
+		top: -0.25em;
 		left: 10px;
 		font-size: 5em;
 		font-weight: bold;
 		opacity: 0.1;
 		z-index: 1;
-		background: -webkit-linear-gradient($secondary, #eee);
+		background: -webkit-linear-gradient($secondary, #f0f0f0);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		user-select: none;
@@ -125,14 +125,14 @@ export default {
 
 	.info-container {
 		margin-top: auto;
+		font-size: 0.8em;
 
 		.info-item {
 			width: fit-content;
 			text-align: center;
-			margin: 10px auto;
+			margin: 15px auto;
 			padding: 5px 10px;
 			border-radius: $radius;
-			font-size: 0.8em;
 
 			&.primary {
 				color: $primary;
@@ -160,8 +160,7 @@ export default {
 				opacity: 0.3;
 			}
 			span {
-				color: lighten($secondary, 30%);
-				font-size: 0.8em;
+				color: lighten($secondary, 20%);
 			}
 		}
 		.location {

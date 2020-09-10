@@ -60,12 +60,12 @@ export default {
 		maxMarginOfVictories() {
 			let maxMargin = {}
 			for(let match of this.matches) {
-				if(!maxMargin.hasOwnProperty(match.season) && parseInt(match.win_by_runs) > 0) {
-					maxMargin[match.season] = parseInt(match.win_by_runs);
+				if(!maxMargin.hasOwnProperty(match.season) && match.win_by_runs > 0) {
+					maxMargin[match.season] = match.win_by_runs;
 					continue;
 				}
-				if(maxMargin[match.season] < parseInt(match.win_by_runs)) {
-					maxMargin[match.season] = parseInt(match.win_by_runs);
+				if(maxMargin[match.season] < match.win_by_runs) {
+					maxMargin[match.season] = match.win_by_runs;
 				}
 			}
 			

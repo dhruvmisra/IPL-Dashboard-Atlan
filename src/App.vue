@@ -36,7 +36,11 @@ export default {
 			let match = JSON.parse(JSON.stringify(schema));
 			let keys = Object.keys(match);
 			for(let j in keys) {
-				match[keys[j]] = fields[j];
+				if(keys[j] == "season" || keys[j] == "win_by_runs" || keys[j] == "win_by_wickets") {
+					match[keys[j]] = parseInt(fields[j]);
+				} else {
+					match[keys[j]] = fields[j];
+				}
 			}
 			this.matches.push(match);
 		}

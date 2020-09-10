@@ -2,16 +2,16 @@
 	<div id="matches">
 		<h3>Matches</h3>
 		<AutocompleteSearch class="my-4" :items="teams" placeholder="Search teams" @textChanged="teamQuery = $event" />
-		<!-- <div class="form-group my-3">
-			<div class="">
-				<label for="sort" class="text-secondary">Sort By</label>
-				<select class="form-select w-25" name="sort" id="sort" v-model="currentSorting">
+		<div class="form-group row my-3 mx-0">
+			<label for="sort" class="text-secondary col-sm-2 col-form-label">Sort By</label>
+			<div class="col-sm-4">
+				<select class="form-select" name="sort" id="sort" v-model="currentSorting">
 					<option :value="sorting" v-for="sorting in sortings" :key="sorting.parameter">{{ sorting.parameter }}</option>
 				</select>
 			</div>
-		</div> -->
+		</div>
 
-		<MatchesGrid :matches="matches" :teamQuery="teamQuery" />
+		<MatchesGrid :matches="matches" :teamQuery="teamQuery" :sorting="currentSorting" />
 
 	</div>
 </template>
@@ -35,11 +35,11 @@ export default {
 		sortings: [
 			{
 				parameter: "Season",
-				order: "D"
+				order: "DSC"
 			},
 			{
 				parameter: "City",
-				order: "A"
+				order: "ASC"
 			},
 		]
 	}),

@@ -1,12 +1,10 @@
 <template>
 	<transition-group tag="div" class="matches-grid" name="grid" mode="in-out">
-		<!-- <div class="matches-grid"> -->
-			<MatchItem 
-				:match="match" 
-				v-for="match in matchesToRender" 
-				:key="match.id"
-			/>
-		<!-- </div> -->
+		<MatchItem 
+			:match="match" 
+			v-for="match in matchesToRender" 
+			:key="match.id"
+		/>
 	</transition-group>
 </template>
 
@@ -16,7 +14,8 @@ import MatchItem from './MatchItem';
 export default {
 	props: {
 		matches: Array,
-		teamQuery: String
+		teamQuery: String,
+		sorting: Object
 	},
 	components: {
 		MatchItem
@@ -27,10 +26,18 @@ export default {
 	}),
 	computed: {
 		matchesToRender() {
-			let sliced = this.matches.slice(0, this.renderedCount);
-			let teamFiltered = sliced.filter(match => match.team1.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1 || match.team2.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1);
-			// let sorted = 
-			return teamFiltered;
+			let teamFiltered = this.matches.filter(match => match.team1.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1 || match.team2.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1);
+			let sorted;
+			switch(this.sorting.parameter) {
+				case "Season":
+					sorted = teamFiltered.sort((a, b) => this.sorting.order == "ASC" ? a.season - b.season : b.season - a.season);
+					break;
+				case "City":
+					sorted = teamFiltered.sort((a, b) => this.sorting.order == "ASC" ? a.city.localeCompare(b.city) : b.city.localeCompare(a.city));
+					break;
+			}
+			let sliced = sorted.slice(0, this.renderedCount);
+			return sliced;
 		}
 	},
 	watch: {

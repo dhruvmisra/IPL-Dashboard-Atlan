@@ -21,7 +21,7 @@ export default {
 		MatchItem
 	},
 	data: () => ({
-		renderedCount: 10,
+		renderedCount: 30,
 		incrementable: true
 	}),
 	computed: {
@@ -43,7 +43,7 @@ export default {
 	watch: {
 		teamQuery: function(newVal, oldVal) {
 			if(newVal == "") {
-				this.renderedCount = 10;
+				this.renderedCount = 30;
 			} else {
 				this.renderedCount = this.matches.length;
 			}
@@ -57,7 +57,7 @@ export default {
 			let el = document.querySelector('.main-content');
 			if(el.scrollTop >= el.scrollHeight-760) {
 				if(this.incrementable) {
-					this.renderedCount += 10;
+					this.renderedCount += 20;
 					this.incrementable = false;
 					setTimeout(() => {
 						this.incrementable = true;

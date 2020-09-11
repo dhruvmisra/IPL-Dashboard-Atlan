@@ -11,19 +11,10 @@ export default {
 	props: {
 		type: String,
 		data: Object,
-		options: Object
+		options: Object,
 	},
 	data: () => ({
 		chart: null,
-		sampleData: {
-			labels: [],
-			datasets: [{
-				label: 'Votes',
-				data: [],
-				backgroundColor: [],
-				hoverBackgroundColor: []
-			}]
-		},
 		defaultOptions: {
 			responsive: true,
 			maintainAspectRatio: false
@@ -36,7 +27,19 @@ export default {
 			options: {
 				...this.defaultOptions,
 				...this.options
-			}
+			},
+			plugins: this.type != "line" ? [] : [{
+				beforeRender: function(c, options) {
+					var dataset = c.data.datasets[0];
+					
+					var gradientFill = c.ctx.createLinearGradient(0, 0, 0, c.height);
+					gradientFill.addColorStop(0, dataset.backgroundColor + 'AA');
+					gradientFill.addColorStop(1, dataset.backgroundColor + '00');
+
+					var model = c.data.datasets[0]._meta[Object.keys(dataset._meta)[0]].$filler.el._model;
+					model.backgroundColor = gradientFill;
+				}
+			}]
 		});
 	},
 	methods: {
@@ -46,6 +49,7 @@ export default {
 				type: chartData.type,
 				data: chartData.data,
 				options: chartData.options,
+				plugins: chartData.plugins
 			});
 		}
 	}
@@ -54,7 +58,7 @@ export default {
 
 <style lang="scss">
 canvas {
-	width: 100%;
+	width: 80%;
 	height: 100%;
 }
 </style>

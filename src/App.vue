@@ -3,7 +3,9 @@
 		<Sidebar />
     <div class="main-content">
 			<transition name="fade" mode="out-in">
-    		<router-view :matches="matches" :key="$route.name" />
+				<keep-alive>
+    			<router-view :matches="matches" :key="$route.name" />
+				</keep-alive>
 			</transition>
     </div>
   </div>

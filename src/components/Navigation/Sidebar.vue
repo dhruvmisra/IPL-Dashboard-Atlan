@@ -24,7 +24,7 @@ export default {
 		selected: "",
 		navs: [
 			{
-				name: "Home",
+				name: "Trivia",
 				path: "/"
 			},
 			{

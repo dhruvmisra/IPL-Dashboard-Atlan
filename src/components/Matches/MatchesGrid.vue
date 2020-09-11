@@ -4,6 +4,8 @@
 			:match="match" 
 			v-for="match in matchesToRender" 
 			:key="match.id"
+			:opened="openId == parseInt(match.id)"
+			@matchClicked="matchClicked"
 		/>
 	</transition-group>
 </template>
@@ -15,7 +17,8 @@ export default {
 	props: {
 		matches: Array,
 		teamQuery: String,
-		sorting: Object
+		sorting: Object,
+		openId: Number
 	},
 	components: {
 		MatchItem
@@ -26,6 +29,10 @@ export default {
 	}),
 	computed: {
 		matchesToRender() {
+			if(this.openId != -1) {
+				return [this.matches.find(match => match.id == this.openId)];
+			}
+
 			let teamFiltered = this.matches.filter(match => match.team1.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1 || match.team2.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1);
 			let sorted;
 			switch(this.sorting.parameter) {
@@ -65,12 +72,8 @@ export default {
 				}
 			}
 		},
-		matchesSearch(match) {
-			let regex = new RegExp(this.teamQuery, "i");
-			if(regex.test(match.team1) || regex.test(match.team2) || regex.test(match.season) || regex.test(match.result)) {
-				return true;
-			}
-			return false;
+		matchClicked(index) {
+			this.$emit('openMatchDetails', index);
 		}
 	},
 	beforeDestroy() {

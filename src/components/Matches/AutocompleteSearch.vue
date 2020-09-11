@@ -97,7 +97,7 @@ export default {
 <style lang="scss">
 .autocomplete {
 	position: relative;
-	width: 100%;
+	// width: 100%;
 
 	.autocomplete-results {
 		position: absolute;

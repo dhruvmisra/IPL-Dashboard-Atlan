@@ -59,11 +59,12 @@ export default {
 	z-index: 10;
 
 	.heading {
+		text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
 
 		.ipl-logo {
 			width: 70px;
 			margin-bottom: 10px;
-			filter: drop-shadow(1px 1px 0 white) drop-shadow(-0.5px -0.5px 0 white);
+			filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
 		}
 	}
 
@@ -73,7 +74,7 @@ export default {
 		margin-top: 30px;
 
 		.side-item {
-			padding: 20px 10px;
+			padding: 20px;
 			color: rgba(255, 255, 255, 0.5);
 			cursor: pointer;
 

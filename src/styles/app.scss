@@ -6,6 +6,8 @@ $theme-colors: (
 	"light": $light,
 	"success": $success,
 	"danger": $danger,
+	"secondary": $secondary,
+	"warning": $warning
 );
 
 @import "../../node_modules/bootstrap/scss/bootstrap";

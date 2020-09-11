@@ -1,5 +1,5 @@
 <template>
-	<div class="match-card" :title="JSON.stringify(match)">
+	<div class="match-card" :class="{ opened: opened }" :title="JSON.stringify(match)" @click="onClick">
 		<div class="season-text">{{ match.season }}</div>
 		<div class="teams">
 			<div class="team-container">
@@ -14,13 +14,13 @@
 		</div>
 		<div class="info-container">
 			<div v-if="match.result == 'normal'">
-				<div class="info-item success" v-if="match.win_by_runs > 0">{{ match.winner }} won by {{ match.win_by_runs }} runs</div>
-				<div class="info-item success" v-else-if="match.win_by_wickets > 0">{{ match.winner }} won by {{ match.win_by_wickets }} wickets</div>
+				<div class="info-item success centered" v-if="match.win_by_runs > 0">{{ match.winner }} won by {{ match.win_by_runs }} runs</div>
+				<div class="info-item success centered" v-else-if="match.win_by_wickets > 0">{{ match.winner }} won by {{ match.win_by_wickets }} wickets</div>
 			</div>
 			<div v-else>
-				<div class="info-item accent">Match was a Tie</div>
+				<div class="info-item accent centered">Match was a Tie</div>
 			</div>
-			<div class="row">
+			<div class="row" :class="{ 'mx-0': opened }">
 				<div class="date">
 					<img src="@/assets/icons/calendar.svg">
 					<span>{{ match.date }}</span>
@@ -30,6 +30,32 @@
 					<span>{{ match.city }}</span>
 				</div>
 			</div>
+			<div v-if="opened">
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<th>Match of the Match</th>
+							<td>{{ match.player_of_match }}</td>
+						</tr>
+						<tr>
+							<th>Umpire 1</th>
+							<td>{{ match.umpire1 }}</td>
+						</tr>
+						<tr>
+							<th>Umpire 2</th>
+							<td>{{ match.umpire2 }}</td>
+						</tr>
+						<tr>
+							<th>Toss Winner</th>
+							<td>{{ match.toss_winner }} ({{ match.toss_decision }})</td>
+						</tr>
+						<tr>
+							<th>Venue</th>
+							<td>{{ match.venue }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </template>
@@ -37,7 +63,8 @@
 <script>
 export default {
 	props: {
-		match: Object
+		match: Object,
+		opened: Boolean
 	},
 	methods: {
 		getTeamLogo(teamName) {
@@ -46,6 +73,9 @@ export default {
 				fileName = "Rising-Pune-Supergiant.png";
 			}
 			return require('@/assets/logos/' + fileName);
+		},
+		onClick(event) {
+			this.$emit('matchClicked', parseInt(this.match.id));
 		}
 	}
 }
@@ -130,10 +160,14 @@ export default {
 		.info-item {
 			width: fit-content;
 			text-align: center;
-			margin: 15px auto;
+			margin: 15px 0;
 			padding: 5px 10px;
 			border-radius: $radius;
 
+			&.centered {
+				margin-left: auto;
+				margin-right: auto;
+			}
 			&.primary {
 				color: $primary;
 				background: rgba($primary, 0.1);
@@ -141,6 +175,10 @@ export default {
 			&.accent {
 				color: $accent;
 				background: rgba($accent, 0.1);
+			}
+			&.secondary {
+				color: $secondary;
+				background: rgba($secondary, 0.1);
 			}
 			&.success {
 				color: $success;
@@ -156,15 +194,56 @@ export default {
 
 			img {
 				width: 15px;
-				margin: 0 5px;
-				opacity: 0.3;
+				margin: 0 8px;
+				opacity: 0.5;
 			}
 			span {
-				color: lighten($secondary, 20%);
+				color: lighten($secondary, 10%);
 			}
 		}
 		.location {
 			margin-left: auto;
+		}
+	}
+	
+	
+	&.opened {
+		max-width: none;
+
+		.teams {
+			.vs-text {
+				font-size: 1.1em;
+			}
+			.team-container {
+				.team-logo {
+					max-width: 150px;
+				}
+				.team-name {
+					font-size: 1.1em;
+				}
+			}
+		}
+		.info-container {
+			font-size: 1em;
+			.info-item {
+				margin: 20px initial;
+			}
+			.table {
+				width: 100%;
+				max-width: 500px;
+				margin: 30px auto;
+				text-align: center;
+				font-size: 0.9em;
+				vertical-align: middle;
+
+				th {
+					color: grey;
+					font-weight: 600;
+				}
+				td {
+					width: 50%;
+				}
+			}
 		}
 	}
 

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/IPL-Dashboard-Atlan/precache-manifest.dbd58238736bda31d80689489b5909bc.js"
+  "/IPL-Dashboard-Atlan/precache-manifest.36437b10d6c91af608a69a66840fcc6b.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "ipl-dashboard"});

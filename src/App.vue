@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 		<Sidebar />
-    <div class="main-content">
+    <div ref="mainContent" class="main-content">
 			<transition name="fade" mode="out-in">
 				<keep-alive>
     			<router-view :matches="matches" :key="$route.name" />
@@ -23,6 +23,11 @@ export default {
 		matches: [],
 		selected: ""
 	}),
+	watch: {
+		'$route.name': function(newVal, oldVal) {
+			this.$refs.mainContent.scrollTo(0, 0);
+		}
+	},
 	created() {
 		let records = MatchesCSV.split('\n');
 		records = records.slice(0, records.length-1); // removing last empty record
@@ -65,7 +70,7 @@ export default {
 	color: black;
 	flex: 5;
 	width: 100%;
-	padding: 20px;
+	padding: 25px;
 }
 .fade-enter-active, .fade-leave-active {
 	transition: all 150ms ease-out;

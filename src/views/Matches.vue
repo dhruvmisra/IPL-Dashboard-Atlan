@@ -1,15 +1,16 @@
 <template>
 	<div id="matches">
 		<h3>Matches</h3>
-		<button class="btn btn-secondary btn-sm btn-back" v-if="openId != -1" @click="closeMatchDetails"></button>
-		<div class="filters row my-2 align-items-center" v-else>
+		<small class="text-sm" style="color: grey">Library of all the matches from 2008 to 2017. Click on a card to view more information.</small>
+		<div class="btn-back" v-if="openId != -1" @click="closeMatchDetails"></div>
+		<div class="filters row mx-0 my-2 align-items-center" v-else>
 			<AutocompleteSearch
-				class="team-search my-2"
+				class="team-search my-2 mr-1"
 				:items="teams"
 				placeholder="Search teams"
 				@textChanged="teamQuery = $event"
 			/>
-			<div class="form-group sort my-2">
+			<div class="form-group sort my-2 mr-1">
 				<span>Sort by:</span>	
 				<select class="form-select" name="sort" id="sort" v-model="currentSorting">
 					<option :value="sorting" v-for="sorting in sortings" :key="sorting.parameter">
@@ -108,15 +109,20 @@ export default {
 
 <style lang="scss">
 .btn-back {
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	margin: 10px;
 	background-image: url(../assets/icons/back.svg);
-	background-size: 1em;
 	background-position: center;
 	background-repeat: no-repeat;
+	cursor: pointer;
 }
 .filters {
+
+	&.row > * {
+		padding-left: 0;
+		padding-right: 0;
+	}
 	.form-group {
 		span {
 			font-size: 0.9em;

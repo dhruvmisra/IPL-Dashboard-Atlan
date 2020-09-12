@@ -13,6 +13,7 @@
 			</div>
 		</div>
 		<div class="info-container">
+			<div class="info-item info centered" v-if="match.dl_applied > 0">DLS applied</div>
 			<div v-if="match.result == 'normal'">
 				<div class="info-item success centered" v-if="match.win_by_runs > 0">{{ match.winner }} won by {{ match.win_by_runs }} runs</div>
 				<div class="info-item success centered" v-else-if="match.win_by_wickets > 0">{{ match.winner }} won by {{ match.win_by_wickets }} wickets</div>

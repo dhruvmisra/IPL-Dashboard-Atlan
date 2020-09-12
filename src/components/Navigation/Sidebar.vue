@@ -15,6 +15,10 @@
 				:key="nav.name"
 			><img :src="getIcon(nav.icon)"> <span>{{ nav.name }}</span></router-link>
 		</ul>
+		<a href="https://github.com/dhruvmisra/IPL-Dashboard-Atlan" target="_blank" class="btn btn-dark btn-github">
+			<img src="@/assets/icons/github-logo.svg" alt="Github logo">
+			<span>GitHub</span>
+		</a>
 	</div>
 </template>
 
@@ -55,13 +59,11 @@ export default {
 .side-bar {
 	flex: 1;	
 	height: 100%;
-	// background: linear-gradient(180deg, #4650E3 0%, #0711A6 25%, #0711A6 75%, #1F29B6 100%);
 	background: linear-gradient(180deg, desaturate(lighten($primary, 15%), 10%) 0%, saturate(darken($primary, 10%), 20%) 25%, saturate(darken($primary, 10%), 20%) 75%, $primary 100%);
 	color: white;
 	display: flex;
 	flex-direction: column;
 	padding: 20px 0;
-	// text-align: center;
 	box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
 	z-index: 10;
 
@@ -88,7 +90,7 @@ export default {
 			cursor: pointer;
 
 			img {
-				width:25px;
+				width: 25px;
 				margin: 0 10px;
 			}
 
@@ -111,6 +113,26 @@ export default {
 		}
 	}
 
+	.btn-github {
+		padding: 10px;
+		margin: 0 20px;
+		margin-top: auto;
+		font-size: 0.9em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(black, 0.2);
+		border: none;
+		&:hover {
+			background: black;
+		}
+
+		img {
+			width: 20px;
+			margin: 0 10px;
+		}
+	}
+
 	@media (max-width: 624px) {
 		.heading {
 			span {
@@ -130,6 +152,17 @@ export default {
 				span {
 					display: none;
 				}
+			}
+		}
+		.btn-github {
+			margin: 0;
+			margin-top: auto;
+
+			img {
+				margin: 0;
+			}
+			span {
+				display: none;
 			}
 		}
 	}

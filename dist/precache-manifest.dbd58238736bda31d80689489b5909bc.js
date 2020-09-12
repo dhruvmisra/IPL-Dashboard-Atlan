@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IPL-Dashboard-Atlan/404.html"
   },
   {
-    "revision": "3e48c093ed0305e04854",
+    "revision": "b168fd7adc0f95031804",
     "url": "/IPL-Dashboard-Atlan/css/app.cf7e19b6.css"
   },
   {
@@ -84,12 +84,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IPL-Dashboard-Atlan/img/trivia.53e49caa.svg"
   },
   {
-    "revision": "5597938d088ab64e4c3ba35eb5fd2c53",
+    "revision": "e0235c2141437deaca896fe22dba042e",
     "url": "/IPL-Dashboard-Atlan/index.html"
   },
   {
-    "revision": "3e48c093ed0305e04854",
-    "url": "/IPL-Dashboard-Atlan/js/app.c5f5aae3.js"
+    "revision": "b168fd7adc0f95031804",
+    "url": "/IPL-Dashboard-Atlan/js/app.2c195596.js"
   },
   {
     "revision": "3ad2756845698563a6ef",

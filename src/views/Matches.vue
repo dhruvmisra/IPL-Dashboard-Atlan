@@ -1,9 +1,7 @@
 <template>
 	<div id="matches">
 		<h3>Matches</h3>
-		<button class="btn btn-secondary btn-sm btn-back" v-if="openId != -1" @click="openId = -1">
-			<img src="@/assets/icons/back.svg" alt="back button">
-		</button>
+		<button class="btn btn-secondary btn-sm btn-back" v-if="openId != -1" @click="closeMatchDetails"></button>
 		<div class="filters row my-2 align-items-center" v-else>
 			<AutocompleteSearch
 				class="team-search my-2"
@@ -32,6 +30,7 @@
 		<MatchesGrid
 			:matches="matches"
 			:teamQuery="teamQuery"
+			:matchType="matchType"
 			:sorting="currentSorting"
 			:openId="openId"
 			@openMatchDetails="openMatchDetails"
@@ -68,8 +67,26 @@ export default {
 		],
 		openId: -1,
 	}),
+	watch: {
+		'$route.query.id': function(newVal, oldVal) {
+			if(newVal) {
+				this.openId = parseInt(newVal);
+			} else {
+				this.openId = -1;
+			}
+		}
+	},
 	created() {
 		this.currentSorting = this.sortings[0];
+
+		if(this.$route.query.id) {
+			let id = parseInt(this.$route.query.id);
+			if(id >= 0 && id < this.matches.length) {
+				this.openId = id;
+			} else {
+				this.$router.replace({ path: '/matches' })
+			}
+		}
 
 		let teams = {};
 		for (let match of this.matches) {
@@ -80,7 +97,10 @@ export default {
 	},
 	methods: {
 		openMatchDetails(id) {
-			this.openId = id;
+			this.$router.push({ path: "/matches", query: { id: id } })
+		},
+		closeMatchDetails() {
+			this.$router.push({ path: "/matches" });
 		}
 	}
 };
@@ -91,6 +111,10 @@ export default {
 	width: 30px;
 	height: 30px;
 	border-radius: 50%;
+	background-image: url(../assets/icons/back.svg);
+	background-size: 1em;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 .filters {
 	.form-group {

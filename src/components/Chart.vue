@@ -57,8 +57,14 @@ export default {
 </script>
 
 <style lang="scss">
+.chart-container {
+	width: 100%;
+	height: 80%;
+	min-height: 200px;
+	max-width: 800px;
+}
 canvas {
-	width: 80%;
+	width: 100%;
 	height: 100%;
 }
 </style>

@@ -2,7 +2,17 @@
 	<div class="trivia-slide">
 		<div class="index">{{ '#'+index }}</div>
 		<h4 class="heading">{{ trivia.title }}</h4>
-		<Chart v-if="trivia.chartData" :type="trivia.chartData.type" :data="trivia.chartData.data" :options="trivia.chartData.options" />
+		<div class="charts" v-if="trivia.charts">
+			<Chart
+				v-for="(chartData, i) in trivia.charts"
+				:key="i"
+				:class="chartData.customClass"
+				:type="chartData.type" 
+				:data="chartData.data" 
+				:options="chartData.options" 
+			/>
+		</div>
+		<div v-if="trivia.info" v-html="trivia.info" class="text-center"></div>
 		<slot></slot>
 	</div>
 </template>
@@ -48,6 +58,18 @@ export default {
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		user-select: none;
+	}
+
+	.charts {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+	}
+}
+@media (max-width: 624px) {
+	.trivia-slide {
+		padding: 20px;
 	}
 }
 </style>

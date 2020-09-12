@@ -4,9 +4,10 @@
 
 $primary: #1F29B6;
 $accent: #ffa500;
-$success: #04CA53;
+$success: #32E665;
 $light: #F4F7FF;
 $danger: #F02D76;
+$info: #3DBFF3;
 
 $transition: all 300ms ease-out;
 $radius: 5px;
@@ -15,7 +16,11 @@ $shadow: 0 5px 25px rgba(0, 0, 0, 0.07);
 :export {
   primaryColor: $primary;
 	accentColor: $accent;
+	secondaryColor: $secondary;
 	dangerColor: $danger;
 	successColor: $success;
 	lightColor: $light;
+	warningColor: $warning;
+	infoColor: $info;
+	darkColor: $dark;
 }

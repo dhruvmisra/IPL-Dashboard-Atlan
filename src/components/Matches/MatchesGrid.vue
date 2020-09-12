@@ -17,6 +17,7 @@ export default {
 	props: {
 		matches: Array,
 		teamQuery: String,
+		matchType: String,
 		sorting: Object,
 		openId: Number
 	},
@@ -34,13 +35,14 @@ export default {
 			}
 
 			let teamFiltered = this.matches.filter(match => match.team1.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1 || match.team2.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1);
+			let typeFiltered = teamFiltered.filter(match => this.matchType != 'all' ? match.result == this.matchType : true);
 			let sorted;
 			switch(this.sorting.parameter) {
 				case "Season":
-					sorted = teamFiltered.sort((a, b) => this.sorting.order == "ASC" ? a.season - b.season : b.season - a.season);
+					sorted = typeFiltered.sort((a, b) => this.sorting.order == "ASC" ? a.season - b.season : b.season - a.season);
 					break;
 				case "City":
-					sorted = teamFiltered.sort((a, b) => this.sorting.order == "ASC" ? a.city.localeCompare(b.city) : b.city.localeCompare(a.city));
+					sorted = typeFiltered.sort((a, b) => this.sorting.order == "ASC" ? a.city.localeCompare(b.city) : b.city.localeCompare(a.city));
 					break;
 			}
 			let sliced = sorted.slice(0, this.renderedCount);

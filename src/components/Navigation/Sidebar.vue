@@ -13,7 +13,7 @@
 				:to="nav.path"
 				v-for="nav in navs"
 				:key="nav.name"
-			>{{ nav.name }}</router-link>
+			><img :src="getIcon(nav.icon)"> <span>{{ nav.name }}</span></router-link>
 		</ul>
 	</div>
 </template>
@@ -25,11 +25,13 @@ export default {
 		navs: [
 			{
 				name: "Trivia",
-				path: "/"
+				path: "/",
+				icon: "trivia.svg"
 			},
 			{
 				name: "Matches",
-				path: "/matches"
+				path: "/matches",
+				icon: "matches.svg"
 			},
 		]
 	}),
@@ -40,6 +42,11 @@ export default {
 	},
 	created() {
 		this.selected = this.$route.name;
+	},
+	methods: {
+		getIcon(icon) {
+			return require('@/assets/icons/' + icon);
+		}
 	}
 }
 </script>
@@ -74,9 +81,16 @@ export default {
 		margin-top: 30px;
 
 		.side-item {
+			display: flex;
+			align-items: center;
 			padding: 20px;
 			color: rgba(255, 255, 255, 0.5);
 			cursor: pointer;
+
+			img {
+				width:25px;
+				margin: 0 10px;
+			}
 
 			&.selected {
 				position: relative;
@@ -101,6 +115,21 @@ export default {
 		.heading {
 			span {
 				display: none;
+			}
+			.ipl-logo {
+				width: 50px;
+			}
+		}
+		.side-list {
+			.side-item {
+				justify-content: center;
+				padding: 20px 10px;
+				img {
+					margin: 0;
+				}
+				span {
+					display: none;
+				}
 			}
 		}
 	}

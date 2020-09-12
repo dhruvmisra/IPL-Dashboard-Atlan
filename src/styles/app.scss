@@ -7,7 +7,8 @@ $theme-colors: (
 	"success": $success,
 	"danger": $danger,
 	"secondary": $secondary,
-	"warning": $warning
+	"warning": $warning,
+	"dark": $dark
 );
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
@@ -19,4 +20,37 @@ $theme-colors: (
 .form-control, .form-select {
 	border: none;
 	box-shadow: 0 2px 5px rgba($primary, 0.1) !important;
+}
+
+.info-item {
+	width: fit-content;
+	text-align: center;
+	margin: 15px 0;
+	padding: 5px 10px;
+	border-radius: $radius;
+
+	&.centered {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	&.primary {
+		color: $primary;
+		background: rgba($primary, 0.1);
+	}
+	&.accent {
+		color: $accent;
+		background: rgba($accent, 0.1);
+	}
+	&.secondary {
+		color: $secondary;
+		background: rgba($secondary, 0.1);
+	}
+	&.success {
+		color: $success;
+		background: rgba($success, 0.1);
+	}
+	&.danger {
+		color: $danger;
+		background: rgba($danger, 0.1);
+	}
 }

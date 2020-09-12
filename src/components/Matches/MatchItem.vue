@@ -1,5 +1,5 @@
 <template>
-	<div class="match-card" :class="{ opened: opened }" :title="JSON.stringify(match)" @click="onClick">
+	<div class="match-card" :class="{ opened: opened }" @click="onClick">
 		<div class="season-text">{{ match.season }}</div>
 		<div class="teams">
 			<div class="team-container">
@@ -35,15 +35,15 @@
 					<tbody>
 						<tr>
 							<th>Match of the Match</th>
-							<td>{{ match.player_of_match }}</td>
+							<td>{{ match.player_of_match != "" ? match.player_of_match : "N/A" }}</td>
 						</tr>
 						<tr>
 							<th>Umpire 1</th>
-							<td>{{ match.umpire1 }}</td>
+							<td>{{ match.umpire1 != "" ? match.umpire1 : "N/A" }}</td>
 						</tr>
 						<tr>
 							<th>Umpire 2</th>
-							<td>{{ match.umpire2 }}</td>
+							<td>{{ match.umpire2 != "" ? match.umpire2 : "N/A" }}</td>
 						</tr>
 						<tr>
 							<th>Toss Winner</th>
@@ -51,7 +51,7 @@
 						</tr>
 						<tr>
 							<th>Venue</th>
-							<td>{{ match.venue }}</td>
+							<td>{{ match.venue != "" ? match.venue : "N/A" }}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -75,6 +75,7 @@ export default {
 			return require('@/assets/logos/' + fileName);
 		},
 		onClick(event) {
+			if(this.opened) return;
 			this.$emit('matchClicked', parseInt(this.match.id));
 		}
 	}
@@ -157,38 +158,6 @@ export default {
 		margin-top: auto;
 		font-size: 0.8em;
 
-		.info-item {
-			width: fit-content;
-			text-align: center;
-			margin: 15px 0;
-			padding: 5px 10px;
-			border-radius: $radius;
-
-			&.centered {
-				margin-left: auto;
-				margin-right: auto;
-			}
-			&.primary {
-				color: $primary;
-				background: rgba($primary, 0.1);
-			}
-			&.accent {
-				color: $accent;
-				background: rgba($accent, 0.1);
-			}
-			&.secondary {
-				color: $secondary;
-				background: rgba($secondary, 0.1);
-			}
-			&.success {
-				color: $success;
-				background: rgba($success, 0.1);
-			}
-			&.danger {
-				color: $danger;
-				background: rgba($danger, 0.1);
-			}
-		}
 		.location, .date {
 			width: fit-content;
 

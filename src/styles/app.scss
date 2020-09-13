@@ -57,4 +57,8 @@ $theme-colors: (
 		color: $info;
 		background: rgba($info, 0.1);
 	}
+	&.warning {
+		color: $warning;
+		background: rgba($warning, 0.1);
+	}
 }

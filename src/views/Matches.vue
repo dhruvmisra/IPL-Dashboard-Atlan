@@ -111,7 +111,7 @@ export default {
 .btn-back {
 	width: 25px;
 	height: 25px;
-	margin: 10px;
+	margin: 10px 0;
 	background-image: url(../assets/icons/back.svg);
 	background-position: center;
 	background-repeat: no-repeat;

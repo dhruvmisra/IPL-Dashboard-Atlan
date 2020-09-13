@@ -45,6 +45,13 @@ export default {
 			for(let j in keys) {
 				if(keys[j] == "season" || keys[j] == "win_by_runs" || keys[j] == "win_by_wickets") {
 					match[keys[j]] = parseInt(fields[j]);
+				} else if(keys[j] == "date") {
+					let date = fields[j].split('/');
+					if(date[2].length == 2) {
+						date[2] = "20" + date[2];
+					}
+					date = date.map(d => parseInt(d));
+					match[keys[j]] = new Date(date[2], date[1]-1, date[0]).getTime();
 				} else {
 					match[keys[j]] = fields[j];
 				}

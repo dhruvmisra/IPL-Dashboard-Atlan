@@ -24,7 +24,7 @@
 			<div class="row" :class="{ 'mx-0': opened }">
 				<div class="date">
 					<img src="@/assets/icons/calendar.svg">
-					<span>{{ match.date }}</span>
+					<span>{{ getFormattedDate(match.date) }}</span>
 				</div>
 				<div class="location">
 					<img src="@/assets/icons/location.svg">
@@ -78,6 +78,9 @@ export default {
 		onClick(event) {
 			if(this.opened) return;
 			this.$emit('matchClicked', parseInt(this.match.id));
+		},
+		getFormattedDate(timestamp) {
+			return new Date(timestamp).toDateString().split(' ').slice(1).join(' ');
 		}
 	}
 }

@@ -33,8 +33,19 @@ export const computeAllTrivia = (matches, teams) => {
 	};
 	// 5. teamsPerformance
 	let performance = {};
+	// 6. LongestStreaks
+	let streaks = {
+		// "Mumbai Indians": {
+		// 	winning: 2,
+		// 	losing: 1,
+		// 	currentlyWinnig: 0,
+		// 	currentlyLosing: 1,
+		// 	season: 2017
+		// }
+	};
 
 	
+	matches.sort((a, b) => a.date - b.date);
 	/*------------ MAIN LOOP ----------------- */
 	for(let match of matches) {
 		// 1. maxMarginOfVictories
@@ -105,6 +116,69 @@ export const computeAllTrivia = (matches, teams) => {
 				performance[match.season].teams[match.team2]++;
 			}
 		}
+
+		// 6. longestStreaks
+		// Null check
+		if(!streaks.hasOwnProperty(match.team1)) {
+			streaks[match.team1] = {
+				winning: 0,
+				losing: 0,
+				currentlyWinning: 0,
+				currentlyLosing: 0,
+				season: match.season
+			}
+		}
+		if(!streaks.hasOwnProperty(match.team2)) {
+			streaks[match.team2] = {
+				winning: 0,
+				losing: 0,
+				currentlyWinning: 0,
+				currentlyLosing: 0,
+				season: match.season
+			}
+		}
+		// Season check
+		if(streaks[match.team1].season != match.season) {
+			if(streaks[match.team1].currentlyWinning > 0) {
+				streaks[match.team1].winning = Math.max(streaks[match.team1].winning, streaks[match.team1].currentlyWinning+1);
+			} else {
+				streaks[match.team1].losing = Math.max(streaks[match.team1].losing, streaks[match.team1].currentlyLosing+1);
+			}
+			streaks[match.team1].currentlyWinning = 0;
+			streaks[match.team1].currentlyLosing = 0;
+			streaks[match.team1].season = match.season;
+		}
+		if(streaks[match.team2].season != match.season) {
+			if(streaks[match.team2].currentlyWinning > 0) {
+				streaks[match.team2].winning = Math.max(streaks[match.team2].winning, streaks[match.team2].currentlyWinning+1);
+			} else {
+				streaks[match.team2].losing = Math.max(streaks[match.team2].losing, streaks[match.team2].currentlyLosing+1);
+			}
+			streaks[match.team2].currentlyWinning = 0;
+			streaks[match.team2].currentlyLosing = 0;
+			streaks[match.team2].season = match.season;
+		}
+		if(match.result == "normal") {
+			if(match.winner == match.team1) {
+				// Team 1 won
+				streaks[match.team1].currentlyWinning++;
+				streaks[match.team1].currentlyLosing = 0;
+				streaks[match.team1].winning = Math.max(streaks[match.team1].winning, streaks[match.team1].currentlyWinning);
+				// Team 2 lost
+				streaks[match.team2].currentlyLosing++;
+				streaks[match.team2].currentlyWinning = 0;
+				streaks[match.team2].losing = Math.max(streaks[match.team2].losing, streaks[match.team2].currentlyLosing);
+			} else {
+				// Team 2 won
+				streaks[match.team2].currentlyWinning++;
+				streaks[match.team2].currentlyLosing = 0;
+				streaks[match.team2].winning = Math.max(streaks[match.team2].winning, streaks[match.team2].currentlyWinning);
+				// Team 1 lost
+				streaks[match.team1].currentlyLosing++;
+				streaks[match.team1].currentlyWinning = 0;
+				streaks[match.team1].losing = Math.max(streaks[match.team1].losing, streaks[match.team1].currentlyLosing);
+			}
+		}
 	}
 
 	/*------------ CONSTRUCTING TRIVIA ARRAY ----------------- */
@@ -114,6 +188,7 @@ export const computeAllTrivia = (matches, teams) => {
 	triviaArray.push(mostTimesMOTMTrivia(MOTMCount, mostTimesMOTM));
 	triviaArray.push(mostPlayedInVenueTrivia(venueCount, mostPlayedInVenue));
 	triviaArray.push(teamsPerformance(performance, teams));
+	triviaArray.push(longestStreaks(streaks));
 
 	return triviaArray;
 }
@@ -380,5 +455,91 @@ const teamsPerformance = (performance, teams) => {
 		});
 	}
 	
+	return trivia;
+}
+
+const longestStreaks = (streaks) => {
+	// console.log(streaks);
+	let longestWinning = {
+		team: "",
+		count: 0
+	}
+	let longestLosing = {
+		team: "",
+		count: 0
+	}
+
+	for(let team in streaks) {
+		if(longestWinning.count < streaks[team].winning) {
+			longestWinning = {
+				team: team,
+				count: streaks[team].winning
+			}
+		}
+		if(longestLosing.count < streaks[team].losing) {
+			longestLosing = {
+				team: team,
+				count: streaks[team].losing
+			}
+		}
+	}
+
+	let trivia = {
+		title: "Longest Streaks",
+		info: `<div class="info-item info centered">Teams with the longest consecutive winning streak: 
+				<span style="font-weight: 600">${longestWinning.team} (${longestWinning.count})</span>
+			</div>
+			<div class="info-item warning centered">Teams with the longest consecutive losing streak: 
+				<span style="font-weight: 600">${longestLosing.team} (${longestLosing.count})</span>
+			</div>
+		`,
+		charts: []
+	};
+	trivia.charts.push({
+		type: 'bar',
+		data: {
+			labels: Object.keys(streaks),
+			datasets: [
+				{
+					label: 'Winning Streak',
+					data: Object.entries(streaks).map(entry => entry[1].winning),
+					borderColor: variables.infoColor,
+					backgroundColor: variables.infoColor,
+					borderWidth: 1,
+					barPercentage: 1.0
+				},
+				{
+					label: 'Losing Streak',
+					data: Object.entries(streaks).map(entry => entry[1].losing),
+					borderColor: variables.warningColor,
+					backgroundColor: variables.warningColor,
+					borderWidth: 1,
+					barPercentage: 1.0
+				}
+			]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}],
+				xAxes: [{
+					scaleLabel: {
+						display: true,
+						labelString: 'Teams'
+					},
+					ticks: {
+						callback: function(value) {
+							return value.substr(0, 12) + "...";
+						},
+					}
+				}]
+			}
+		}
+	});
+
+	console.log(longestWinning, longestLosing, streaks);
 	return trivia;
 }

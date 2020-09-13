@@ -4,8 +4,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IPL-Dashboard-Atlan/404.html"
   },
   {
-    "revision": "4888edbd52ce2cac9838",
-    "url": "/IPL-Dashboard-Atlan/css/app.6129fdaa.css"
+    "revision": "b26b82c528b5a927a1b0",
+    "url": "/IPL-Dashboard-Atlan/css/app.d4dda79c.css"
   },
   {
     "revision": "25cd1d254a61fc384b70141abbdad407",
@@ -60,16 +60,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IPL-Dashboard-Atlan/img/Sunrisers-Hyderabad.ccad15fb.png"
   },
   {
-    "revision": "62c32b6dc686a28bfb440730463e2c8f",
-    "url": "/IPL-Dashboard-Atlan/img/back.62c32b6d.svg"
-  },
-  {
     "revision": "50070f67cfbcc4e817c0d91fcc08885b",
     "url": "/IPL-Dashboard-Atlan/img/calendar.50070f67.svg"
   },
   {
+    "revision": "5e4a6b75ede6d4a5becb91821e57853c",
+    "url": "/IPL-Dashboard-Atlan/img/clear.5e4a6b75.svg"
+  },
+  {
+    "revision": "89235975707a7ccf5bbd337bdda2fb7f",
+    "url": "/IPL-Dashboard-Atlan/img/github-logo.89235975.svg"
+  },
+  {
     "revision": "97cf08755de6285a1bd3a79a76648172",
     "url": "/IPL-Dashboard-Atlan/img/ipl-logo.97cf0875.png"
+  },
+  {
+    "revision": "52bdd78161084444bf66c6f69bc9498c",
+    "url": "/IPL-Dashboard-Atlan/img/left-arrow.52bdd781.svg"
   },
   {
     "revision": "6719431d6075f3639ff5bd84a5a34b79",
@@ -84,12 +92,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IPL-Dashboard-Atlan/img/trivia.53e49caa.svg"
   },
   {
-    "revision": "092cd01d2196e85802a5d382f86ec5aa",
+    "revision": "64750d397ad13852738bca4443ceb13b",
     "url": "/IPL-Dashboard-Atlan/index.html"
   },
   {
-    "revision": "4888edbd52ce2cac9838",
-    "url": "/IPL-Dashboard-Atlan/js/app.f29d9d78.js"
+    "revision": "b26b82c528b5a927a1b0",
+    "url": "/IPL-Dashboard-Atlan/js/app.47e13ea2.js"
   },
   {
     "revision": "3ad2756845698563a6ef",

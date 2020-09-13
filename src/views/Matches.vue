@@ -12,11 +12,12 @@
 			/>
 			<div class="form-group sort my-2 mr-1">
 				<span>Sort by:</span>	
-				<select class="form-select" name="sort" id="sort" v-model="currentSorting">
-					<option :value="sorting" v-for="sorting in sortings" :key="sorting.parameter">
-						{{sorting.parameter}}
+				<select class="form-select" name="sort" id="sort" v-model="selectedSorting">
+					<option :value="parameter" v-for="parameter in sortings" :key="parameter">
+						{{parameter}}
 					</option>
 				</select>
+				<div class="order-by asc" :class="{ 'dsc': ordering == 'DSC' }" @click="ordering = ordering == 'ASC' ? 'DSC' : 'ASC'"></div>
 			</div>
 			<div class="form-group type my-2">
 				<span>Match type:</span>	
@@ -55,19 +56,22 @@ export default {
 		teams: [],
 		teamQuery: "",
 		matchType: "all",
-		currentSorting: null,
 		sortings: [
-			{
-				parameter: "Season",
-				order: "DSC",
-			},
-			{
-				parameter: "City",
-				order: "ASC",
-			},
+			"Season",
+			"City"
 		],
+		selectedSorting: "Season",
+		ordering: "ASC",
 		openId: -1,
 	}),
+	computed: {
+		currentSorting() {
+			return {
+				parameter: this.selectedSorting,
+				order: this.ordering
+			}
+		}
+	},
 	watch: {
 		'$route.query.id': function(newVal, oldVal) {
 			if(newVal) {
@@ -78,8 +82,6 @@ export default {
 		}
 	},
 	created() {
-		this.currentSorting = this.sortings[0];
-
 		if(this.$route.query.id) {
 			let id = parseInt(this.$route.query.id);
 			if(id >= 0 && id < this.matches.length) {
@@ -102,6 +104,12 @@ export default {
 		},
 		closeMatchDetails() {
 			this.$router.push({ path: "/matches" });
+		},
+		resetFilters() {
+			this.teamQuery = "";
+			this.selectedSorting = "Season";
+			this.ordering = "ASC";
+			this.matchType = "all";
 		}
 	}
 };
@@ -112,7 +120,7 @@ export default {
 	width: 25px;
 	height: 25px;
 	margin: 10px 0;
-	background-image: url(../assets/icons/back.svg);
+	background-image: url(../assets/icons/left-arrow.svg);
 	background-position: center;
 	background-repeat: no-repeat;
 	cursor: pointer;
@@ -142,6 +150,22 @@ export default {
 		align-items: center;
 		span {
 			padding: 0 5px;
+		}
+	}
+	.order-by {
+		width: 20px;
+		height: 20px;
+		margin: 10px;
+		background-image: url(../assets/icons/left-arrow.svg);
+		background-position: center;
+		background-repeat: no-repeat;
+		transition: transform 300ms ease-in-out;
+
+		&.asc {
+			transform: rotate(90deg);
+		}
+		&.dsc {
+			transform: rotate(270deg);
 		}
 	}
 }

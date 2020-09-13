@@ -34,15 +34,28 @@ export default {
 				return [this.matches.find(match => match.id == this.openId)];
 			}
 
-			let teamFiltered = this.matches.filter(match => match.team1.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1 || match.team2.toLowerCase().indexOf(this.teamQuery.toLowerCase()) > -1);
-			let typeFiltered = teamFiltered.filter(match => this.matchType != 'all' ? match.result == this.matchType : true);
+			let filtered = this.matches.filter(match => {
+				let includeItem = (match.team1.toLowerCase().indexOf(this.teamQuery.toLowerCase()) != -1 
+				|| match.team2.toLowerCase().indexOf(this.teamQuery.toLowerCase()) != -1);
+				
+				if(!includeItem) return false;
+
+				switch(this.matchType) {
+					case "all":
+						includeItem = true;
+						break;
+					default:
+						includeItem = (match.result == this.matchType);
+				}
+				return includeItem;
+			});
 			let sorted;
 			switch(this.sorting.parameter) {
 				case "Season":
-					sorted = typeFiltered.sort((a, b) => this.sorting.order == "ASC" ? a.season - b.season : b.season - a.season);
+					sorted = filtered.sort((a, b) => this.sorting.order == "ASC" ? a.season - b.season : b.season - a.season);
 					break;
 				case "City":
-					sorted = typeFiltered.sort((a, b) => this.sorting.order == "ASC" ? a.city.localeCompare(b.city) : b.city.localeCompare(a.city));
+					sorted = filtered.sort((a, b) => this.sorting.order == "ASC" ? a.city.localeCompare(b.city) : b.city.localeCompare(a.city));
 					break;
 			}
 			let sliced = sorted.slice(0, this.renderedCount);

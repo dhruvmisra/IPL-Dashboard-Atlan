@@ -13,6 +13,7 @@
 			@keydown.up="onArrowUp"
 			@keydown.enter="onEnter"
 		/>
+		<div class="clear-text" v-if="search != ''" @click="search = ''"></div>
 		<ul class="autocomplete-results" v-show="isOpen">
 			<li 
 				class="autocomplete-result" 
@@ -97,7 +98,23 @@ export default {
 <style lang="scss">
 .autocomplete {
 	position: relative;
-	// width: 100%;
+	
+	input {
+		padding-right: 30px;
+	}
+
+	.clear-text {
+		position: absolute;
+		top: 2px;
+		right: 10px;
+		width: 15px;
+		height: 15px;
+		margin: 10px 0;
+		background-image: url(../../assets/icons/clear.svg);
+		background-position: center;
+		background-repeat: no-repeat;
+		cursor: pointer;
+	}
 
 	.autocomplete-results {
 		position: absolute;

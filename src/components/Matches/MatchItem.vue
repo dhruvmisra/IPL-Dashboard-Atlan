@@ -210,11 +210,16 @@ export default {
 				vertical-align: middle;
 
 				th {
-					color: grey;
+					color: $secondary;
 					font-weight: 600;
 				}
 				td {
 					width: 50%;
+				}
+
+				&.table-striped > tbody > tr:nth-child(odd) > td,
+				&.table-striped > tbody > tr:nth-child(odd) > th {
+					background-color: $light;
 				}
 			}
 		}

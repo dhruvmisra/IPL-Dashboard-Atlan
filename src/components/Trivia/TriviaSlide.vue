@@ -1,11 +1,12 @@
 <template>
 	<div class="trivia-slide">
-		<div class="index">{{ '#'+index }}</div>
+		<div class="index">{{ index ? '#'+index : 'Trivia' }}</div>
 		<h4 class="heading">{{ trivia.title }}</h4>
-		<div class="charts" v-if="trivia.charts">
+		<div class="charts" v-if="trivia.charts.length">
 			<Chart
 				v-for="(chartData, i) in trivia.charts"
 				:key="i"
+				:chartId="index ? 'trivia-' + index : 'trivia-random'"
 				:class="chartData.customClass"
 				:type="chartData.type" 
 				:data="chartData.data" 

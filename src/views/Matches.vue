@@ -1,6 +1,6 @@
 <template>
 	<div id="matches">
-		<h3>Matches</h3>
+		<h3 class="title">Matches</h3>
 		<small class="text-sm" style="color: grey">Library of all the matches from 2008 to 2017. Click on a card to view more information.</small>
 		<div class="btn-back" v-if="openId != -1" @click="closeMatchDetails"></div>
 		<div class="filters row mx-0 my-2 align-items-center" v-else>
@@ -157,6 +157,7 @@ export default {
 		height: 20px;
 		margin: 10px;
 		background-image: url(../assets/icons/left-arrow.svg);
+		filter: invert(53%) sepia(100%) saturate(579%) hue-rotate(0deg) brightness(106%) contrast(106%);
 		background-position: center;
 		background-repeat: no-repeat;
 		transition: transform 300ms ease-in-out;

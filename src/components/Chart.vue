@@ -11,7 +11,7 @@ export default {
 	props: {
 		type: String,
 		data: Object,
-		options: Object,
+		options: Object
 	},
 	data: () => ({
 		chart: null,
@@ -29,10 +29,10 @@ export default {
 				...this.options
 			},
 			plugins: this.type != "line" ? [] : [{
-				beforeRender: function(c, options) {
+				beforeRender: (c, options) => {
 					var dataset = c.data.datasets[0];
 					
-					var gradientFill = c.ctx.createLinearGradient(0, 0, 0, c.height);
+					let gradientFill = c.ctx.createLinearGradient(0, 0, 0, c.height);
 					gradientFill.addColorStop(0, dataset.backgroundColor + 'AA');
 					gradientFill.addColorStop(1, dataset.backgroundColor + '00');
 
@@ -51,6 +51,11 @@ export default {
 				options: chartData.options,
 				plugins: chartData.plugins
 			});
+		}
+	},
+	beforeDestroy() {
+		if(this.chart) {
+			this.chart.destroy();
 		}
 	}
 }

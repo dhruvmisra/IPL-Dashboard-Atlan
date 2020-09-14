@@ -3,9 +3,7 @@
 		<Sidebar />
     <div ref="mainContent" class="main-content">
 			<transition name="fade" mode="out-in">
-				<keep-alive>
-    			<router-view :matches="matches" :key="$route.name" />
-				</keep-alive>
+				<router-view :matches="matches" :teams="teams" :triviaArray="triviaArray" :key="$route.name" />
 			</transition>
     </div>
   </div>
@@ -14,6 +12,9 @@
 <script>
 import MatchesCSV from 'raw-loader!../public/matches.csv';
 import Sidebar from '@/components/Navigation/Sidebar';
+import { computeAllTrivia } from '@/components/Trivia/trivia.js';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default {
 	components: {
@@ -21,6 +22,8 @@ export default {
 	},
 	data: () => ({
 		matches: [],
+		teams: [],
+		triviaArray: [],
 		selected: ""
 	}),
 	watch: {
@@ -29,8 +32,14 @@ export default {
 		}
 	},
 	created() {
+		AOS.init({
+			once: true
+		});
+
 		let records = MatchesCSV.split('\n');
 		records = records.slice(0, records.length-1); // removing last empty record
+
+		let teams = {};
 		let schema = {};
 		for(let i in records) {
 			let fields = records[i].split(',');
@@ -40,6 +49,7 @@ export default {
 				}
 				continue;
 			}
+
 			let match = JSON.parse(JSON.stringify(schema));
 			let keys = Object.keys(match);
 			for(let j in keys) {
@@ -52,12 +62,27 @@ export default {
 					}
 					date = date.map(d => parseInt(d));
 					match[keys[j]] = new Date(date[2], date[1]-1, date[0]).getTime();
+				} else if(keys[j] == "venue") {
+					if(fields[j][0] == '\"') {
+						match[keys[j]] = fields[j].substr(1);
+					} else {
+						match[keys[j]] = fields[j];
+					}
 				} else {
 					match[keys[j]] = fields[j];
+				}
+
+				// To create teams array
+				if(keys[j] == "team1" || keys[j] == "team1") {
+					teams[match[keys[j]]] = null;
 				}
 			}
 			this.matches.push(match);
 		}
+		this.teams = Object.keys(teams);
+
+		// Computing trivia
+		this.triviaArray = computeAllTrivia(this.matches, this.teams);
 	}
 }
 </script>

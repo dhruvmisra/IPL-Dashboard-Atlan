@@ -187,8 +187,8 @@ export const computeAllTrivia = (matches, teams) => {
 	triviaArray.push(wonTossWonMatch(wonMatchCount, tossDecision, matches.length));
 	triviaArray.push(mostTimesMOTMTrivia(MOTMCount, mostTimesMOTM));
 	triviaArray.push(mostPlayedInVenueTrivia(venueCount, mostPlayedInVenue));
-	triviaArray.push(teamsPerformance(performance, teams));
 	triviaArray.push(longestStreaks(streaks));
+	triviaArray.push(teamsPerformance(performance, teams));
 
 	return triviaArray;
 }
@@ -318,7 +318,7 @@ const wonTossWonMatch = (wonMatchCount, tossDecision, matchesLength) => {
 
 const mostTimesMOTMTrivia = (MOTMCount, mostTimesMOTM) => {
 	for(let key in MOTMCount) {
-		if(MOTMCount[key] <= 6) {
+		if(MOTMCount[key] <= 5) {
 			delete MOTMCount[key];
 		}
 	}
@@ -341,6 +341,11 @@ const mostTimesMOTMTrivia = (MOTMCount, mostTimesMOTM) => {
 		},
 		options: {
 			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}],
 				xAxes: [{
 					scaleLabel: {
 						display: true,
@@ -356,7 +361,7 @@ const mostTimesMOTMTrivia = (MOTMCount, mostTimesMOTM) => {
 
 const mostPlayedInVenueTrivia = (venueCount, mostPlayedInVenue) => {
 	for(let key in venueCount) {
-		if(venueCount[key] <= 8) {
+		if(venueCount[key] <= 5) {
 			delete venueCount[key];
 		}
 	}
@@ -485,11 +490,11 @@ const longestStreaks = (streaks) => {
 	}
 
 	let trivia = {
-		title: "Longest Streaks",
-		info: `<div class="info-item info centered">Teams with the longest consecutive winning streak: 
+		title: "Longest Streaks in a Season",
+		info: `<div class="info-item info centered">Team with the longest consecutive winning streak: 
 				<span style="font-weight: 600">${longestWinning.team} (${longestWinning.count})</span>
 			</div>
-			<div class="info-item warning centered">Teams with the longest consecutive losing streak: 
+			<div class="info-item warning centered">Team with the longest consecutive losing streak: 
 				<span style="font-weight: 600">${longestLosing.team} (${longestLosing.count})</span>
 			</div>
 		`,
@@ -540,6 +545,5 @@ const longestStreaks = (streaks) => {
 		}
 	});
 
-	console.log(longestWinning, longestLosing, streaks);
 	return trivia;
 }

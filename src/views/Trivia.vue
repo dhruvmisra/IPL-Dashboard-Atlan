@@ -1,6 +1,6 @@
 <template>
   <div class="trivia" ref="container">
-    <h3>Trivia</h3>
+    <h3 class="title">Trivia</h3>
 		<small class="text-sm" style="color: grey">Check out all the crazy trivia stats from 10 years of IPL</small>
 		<TriviaSlide 
 			v-for="(trivia, i) in triviaArray" 
@@ -14,33 +14,17 @@
 
 <script>
 import TriviaSlide from '@/components/Trivia/TriviaSlide';
-import { computeAllTrivia } from '@/components/Trivia/trivia.js';
 
 export default {
 	name: 'Trivia',
 	props: {
-		matches: Array
+		matches: Array,
+		teams: Array,
+		triviaArray: Array
 	},
 	components: {
 		TriviaSlide
-	},
-	data: () => ({
-		triviaArray: []
-	}),
-	computed: {
-		teams() {
-			let teams = {};
-			for(let match of this.matches) {
-				teams[match.team1] = null;
-				teams[match.team2] = null;
-			}
-			return Object.keys(teams);
-		}
-	},
-	mounted() {
-		this.triviaArray = computeAllTrivia(this.matches, this.teams);
-	},
-	methods: {}
+	}
 }
 </script>
 

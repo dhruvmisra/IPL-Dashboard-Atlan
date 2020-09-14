@@ -12,9 +12,16 @@ $theme-colors: (
 );
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
 
 .heading {
   text-align: center;
+}
+
+.title {
+	margin-top: 15px;
+	font-family: 'Yatra One';
+	color: $primary;
 }
 
 .form-control, .form-select {
@@ -61,4 +68,20 @@ $theme-colors: (
 		color: $warning;
 		background: rgba($warning, 0.1);
 	}
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba($dark, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: $dark;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: darken($dark, 10%);
 }

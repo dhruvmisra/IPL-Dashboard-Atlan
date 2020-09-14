@@ -80,9 +80,10 @@ $theme-colors: (
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $dark;
+	background: lighten($dark, 40%);
+	border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: darken($dark, 10%);
+  background: lighten($dark, 30%);
 }

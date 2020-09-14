@@ -46,9 +46,9 @@
 				/>
 			</div>
 			<div class="title-container">
-				<h3 class="title">On this day...</h3>
+				<h3 class="title">On this day... About {{ timeDifference.years }} years and {{ timeDifference.months }} months ago</h3>
 				<small class="text-sm" style="color: grey">
-					About {{ timeDifference.years }} years and {{ timeDifference.months }} months ago. View all matches on the 
+					View all matches on the 
 					<router-link to="/matches">Matches</router-link>
 					page.
 				</small>
@@ -83,9 +83,15 @@ export default {
 		interval: null
 	}),
 	created() {
+		// Random trivia and logos
 		this.logosToShow = this.getRandomIndices(6);
 		this.randomTrivia = this.triviaArray[Math.floor(Math.random()*this.triviaArray.length)];
+		this.interval = setInterval(() => {
+			this.logosToShow = this.getRandomIndices(6);
+			this.randomTrivia = this.triviaArray[Math.floor(Math.random()*this.triviaArray.length)];
+		}, 5000);
 
+		// Random match
 		let today = new Date();
 		let date = today.getDate();
 		let matchesWithSameDate = [];
@@ -99,16 +105,10 @@ export default {
 		let monthDiff = today.getMonth() - new Date(this.randomMatch.date).getMonth();
 		if(monthDiff < 0) {
 			yearDiff--;
-			monthDiff = 12 + monthDiff;
+			monthDiff += 12;
 		}
 		this.timeDifference.years = yearDiff;
 		this.timeDifference.months = monthDiff;
-	},
-	mounted() {
-		this.interval = setInterval(() => {
-			this.logosToShow = this.getRandomIndices(6);
-			this.randomTrivia = this.triviaArray[Math.floor(Math.random()*this.triviaArray.length)];
-		}, 5000);
 	},
 	methods: {
 		getTeamLogo(teamName) {
@@ -126,6 +126,9 @@ export default {
 			}
 			return indices;
 		}
+	},
+	beforeDestroy() {
+		clearInterval(this.interval);
 	}
 }
 </script>
@@ -264,6 +267,8 @@ export default {
 		position: relative;
 		width: 75%;
 		margin-left: auto;
+		max-height: 500px;
+		overflow: auto;
 	}
 }
 .match-section {
@@ -273,17 +278,24 @@ export default {
 	margin: 30px 0;
 
 	.title-container {
-		width: 40%;
+		width: 50%;
+		padding: 30px;
 		padding-left: 15px;
 	}
 
 	.random-match {
 		position: relative;
-		width: 60%;
-		margin: 30px 0;
+		width: 50%;
+		padding: 30px 0;
+		perspective: 1000px;
 
 		.match-card {
+			transform: rotateY(30deg);
+			box-shadow: 10px 50px 80px -30px rgba(black, 0.3);
 			margin: 0 auto;
+			&:hover {
+				transform: rotateY(20deg);
+			}
 		}
 	}
 }
@@ -315,15 +327,22 @@ export default {
 		}
 	}
 	.match-section {
-
 		.title-container {
 			order: 1;
 			width: 100%;
+			padding: 0;
 		}
 
 		.random-match {
 			order: 2;
 			width: 100%;
+
+			.match-card {
+				transform: rotateY(0deg);
+				&:hover {
+					transform: rotateY(0deg);
+				}
+			}
 		}
 	}
 }

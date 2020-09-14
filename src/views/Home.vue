@@ -11,7 +11,7 @@
 				</div>
 				<div class="main-title" data-aos="zoom-out" data-aos-delay="500">
 					<h1>INDIAN PREMIERE LEAGUE</h1>
-					<p>An attempt to sum up 10 years of magic</p>
+					<p>Epitomizing the 10 years of magic</p>
 				</div>
 				<div class="team-logos">
 					<img 
@@ -27,7 +27,11 @@
 		<div class="trivia-section">
 			<div class="title-container">
 				<h3 class="title">Random Trivia</h3>
-				<small class="text-sm" style="color: grey">Here's a fun little trivia statistic for you. View more on the Trivia page.</small>
+				<small class="text-sm" style="color: grey">
+					Here's a fun little trivia statistic for you. View more on the
+					<router-link to="/trivia">Trivia</router-link>
+					page.
+				</small>
 			</div>
 			<TriviaSlide 
 				class="random-trivia-slide"
@@ -35,29 +39,70 @@
 				:key="randomTrivia.title"
 			/>
 		</div>
+		<div class="match-section">
+			<div class="random-match">
+				<MatchItem 
+					:match="randomMatch"
+				/>
+			</div>
+			<div class="title-container">
+				<h3 class="title">On this day...</h3>
+				<small class="text-sm" style="color: grey">
+					About {{ timeDifference.years }} years and {{ timeDifference.months }} months ago. View all matches on the 
+					<router-link to="/matches">Matches</router-link>
+					page.
+				</small>
+			</div>
+		</div>
 
 	</div>
 </template>
 
 <script>
 import TriviaSlide from '@/components/Trivia/TriviaSlide';
+import MatchItem from '@/components/Matches/MatchItem';
 
 export default {
 	props: {
+		matches: Array,
 		teams: Array,
 		triviaArray: Array
 	},
 	components: {
-		TriviaSlide
+		TriviaSlide,
+		MatchItem
 	},
 	data: () => ({
 		logosToShow: [],
 		randomTrivia: {},
+		randomMatch: {},
+		timeDifference: {
+			months: 0, 
+			years: 0
+		},
 		interval: null
 	}),
 	created() {
 		this.logosToShow = this.getRandomIndices(6);
 		this.randomTrivia = this.triviaArray[Math.floor(Math.random()*this.triviaArray.length)];
+
+		let today = new Date();
+		let date = today.getDate();
+		let matchesWithSameDate = [];
+		for(let match of this.matches) {
+			if(new Date(match.date).getDate() == date) {
+				matchesWithSameDate.push(match);
+			}
+		}
+		this.randomMatch = matchesWithSameDate[Math.floor(Math.random()*matchesWithSameDate.length)];
+		let yearDiff = today.getYear() - new Date(this.randomMatch.date).getYear();
+		let monthDiff = today.getMonth() - new Date(this.randomMatch.date).getMonth();
+		if(monthDiff < 0) {
+			yearDiff--;
+			monthDiff = 12 + monthDiff;
+		}
+		this.timeDifference.years = yearDiff;
+		this.timeDifference.months = monthDiff;
 	},
 	mounted() {
 		this.interval = setInterval(() => {
@@ -210,15 +255,36 @@ export default {
 	flex-wrap: wrap;
 
 	.title-container {
-		width: 20%;
+		width: 25%;
 		margin-top: 10em;
-		padding-right: 10px;
+		padding-right: 15px;
 	}
 
 	.random-trivia-slide {
 		position: relative;
-		width: 80%;
+		width: 75%;
 		margin-left: auto;
+	}
+}
+.match-section {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: 30px 0;
+
+	.title-container {
+		width: 40%;
+		padding-left: 15px;
+	}
+
+	.random-match {
+		position: relative;
+		width: 60%;
+		margin: 30px 0;
+
+		.match-card {
+			margin: 0 auto;
+		}
 	}
 }
 @media (max-width: 850px) {
@@ -245,6 +311,18 @@ export default {
 			width: 100%;
 		}
 		.random-trivia-slide {
+			width: 100%;
+		}
+	}
+	.match-section {
+
+		.title-container {
+			order: 1;
+			width: 100%;
+		}
+
+		.random-match {
+			order: 2;
 			width: 100%;
 		}
 	}

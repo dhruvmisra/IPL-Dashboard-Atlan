@@ -1,6 +1,6 @@
 <template>
   <div class="trivia" ref="container">
-    <h3 class="title">Trivia</h3>
+    <h2 class="title">Trivia</h2>
 		<small class="text-sm" style="color: grey">Check out all the crazy trivia stats from 10 years of IPL</small>
 		<TriviaSlide 
 			v-for="(trivia, i) in triviaArray" 

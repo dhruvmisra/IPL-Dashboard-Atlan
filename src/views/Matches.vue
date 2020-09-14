@@ -1,6 +1,6 @@
 <template>
 	<div id="matches">
-		<h3 class="title">Matches</h3>
+		<h2 class="title">Matches</h2>
 		<small class="text-sm" style="color: grey">Library of all the matches from 2008 to 2017. Click on a card to view more information.</small>
 		<div class="btn-back" v-if="openId != -1" @click="closeMatchDetails"></div>
 		<div class="filters row mx-0 my-2 align-items-center" v-else>

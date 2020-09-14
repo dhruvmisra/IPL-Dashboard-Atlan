@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "187b47628e0f40c54af6f495be75505c",
+    "revision": "9c32697257696b8f8397ba6d10f94b8c",
     "url": "/IPL-Dashboard-Atlan/404.html"
   },
   {
-    "revision": "d4126837f7993195934b",
+    "revision": "6e013b44e872b7818907",
     "url": "/IPL-Dashboard-Atlan/css/app.9065a324.css"
   },
   {
@@ -104,19 +104,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IPL-Dashboard-Atlan/img/trivia.53e49caa.svg"
   },
   {
-    "revision": "8103f9411399c7623fc41e56188a0bc6",
+    "revision": "83c4e60d28fb2b3321158071679388a9",
     "url": "/IPL-Dashboard-Atlan/index.html"
   },
   {
-    "revision": "d4126837f7993195934b",
-    "url": "/IPL-Dashboard-Atlan/js/app.03c9b3c6.js"
+    "revision": "6e013b44e872b7818907",
+    "url": "/IPL-Dashboard-Atlan/js/app.50ee35b7.js"
   },
   {
     "revision": "75489d4251feb3f6f129",
     "url": "/IPL-Dashboard-Atlan/js/chunk-vendors.b901c2e4.js"
   },
   {
-    "revision": "0d2bcad86108e38aa39dcffcd6ee1376",
+    "revision": "02a86072abbe4fc7bdcc72dac52df778",
     "url": "/IPL-Dashboard-Atlan/manifest.json"
   },
   {
@@ -124,7 +124,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IPL-Dashboard-Atlan/matches.csv"
   },
   {
-    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
+    "revision": "735ab4f94fbcd57074377afca324c813",
     "url": "/IPL-Dashboard-Atlan/robots.txt"
   }
 ]);

@@ -11,7 +11,7 @@
 				</div>
 				<div class="main-title" data-aos="zoom-out" data-aos-delay="500">
 					<h1>INDIAN PREMIERE LEAGUE</h1>
-					<p>Epitomizing the 10 years of magic</p>
+					<p>Recapitulating 10 years of magic</p>
 				</div>
 				<div class="team-logos">
 					<img 
@@ -32,6 +32,8 @@
 					<router-link to="/trivia">Trivia</router-link>
 					page.
 				</small>
+				<br>
+				<button class="btn btn-primary btn-sm mt-3" @click="getRandomTrivia">New Trivia</button>
 			</div>
 			<TriviaSlide 
 				class="random-trivia-slide"
@@ -85,30 +87,12 @@ export default {
 	created() {
 		// Random trivia and logos
 		this.logosToShow = this.getRandomIndices(6);
-		this.randomTrivia = this.triviaArray[Math.floor(Math.random()*this.triviaArray.length)];
 		this.interval = setInterval(() => {
 			this.logosToShow = this.getRandomIndices(6);
-			this.randomTrivia = this.triviaArray[Math.floor(Math.random()*this.triviaArray.length)];
 		}, 5000);
 
-		// Random match
-		let today = new Date();
-		let date = today.getDate();
-		let matchesWithSameDate = [];
-		for(let match of this.matches) {
-			if(new Date(match.date).getDate() == date) {
-				matchesWithSameDate.push(match);
-			}
-		}
-		this.randomMatch = matchesWithSameDate[Math.floor(Math.random()*matchesWithSameDate.length)];
-		let yearDiff = today.getYear() - new Date(this.randomMatch.date).getYear();
-		let monthDiff = today.getMonth() - new Date(this.randomMatch.date).getMonth();
-		if(monthDiff < 0) {
-			yearDiff--;
-			monthDiff += 12;
-		}
-		this.timeDifference.years = yearDiff;
-		this.timeDifference.months = monthDiff;
+		this.getRandomTrivia();
+		this.getRandomMatch();
 	},
 	methods: {
 		getTeamLogo(teamName) {
@@ -125,6 +109,28 @@ export default {
 				if(indices.indexOf(i) === -1) indices.push(i);
 			}
 			return indices;
+		},
+		getRandomTrivia() {
+			this.randomTrivia = this.triviaArray[Math.floor(Math.random()*this.triviaArray.length)];
+		},
+		getRandomMatch() {
+			let today = new Date();
+			let date = today.getDate();
+			let matchesWithSameDate = [];
+			for(let match of this.matches) {
+				if(new Date(match.date).getDate() == date) {
+					matchesWithSameDate.push(match);
+				}
+			}
+			this.randomMatch = matchesWithSameDate[Math.floor(Math.random()*matchesWithSameDate.length)];
+			let yearDiff = today.getYear() - new Date(this.randomMatch.date).getYear();
+			let monthDiff = today.getMonth() - new Date(this.randomMatch.date).getMonth();
+			if(monthDiff < 0) {
+				yearDiff--;
+				monthDiff += 12;
+			}
+			this.timeDifference.years = yearDiff;
+			this.timeDifference.months = monthDiff;
 		}
 	},
 	beforeDestroy() {
@@ -267,7 +273,7 @@ export default {
 		position: relative;
 		width: 75%;
 		margin-left: auto;
-		max-height: 500px;
+		max-height: 550px;
 		overflow: auto;
 	}
 }
@@ -276,6 +282,7 @@ export default {
 	align-items: center;
 	flex-wrap: wrap;
 	margin: 30px 0;
+
 
 	.title-container {
 		width: 50%;

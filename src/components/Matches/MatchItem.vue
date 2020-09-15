@@ -4,12 +4,12 @@
 		<div class="teams">
 			<div class="team-container">
 				<img class="team-logo" :src="getTeamLogo(match.team1)" :alt="match.team1">
-				<p class="team-name" :class="{ winner: match.result != 'tie' && match.team1 == match.winner }">{{ match.team1 }}</p>
+				<p class="team-name" :class="{ winner: match.result != 'no result' && match.team1 == match.winner }">{{ match.team1 }}</p>
 			</div>
 			<span class="vs-text">VS</span>
 			<div class="team-container">
 				<img class="team-logo" :src="getTeamLogo(match.team2)" :alt="match.team2">
-				<p class="team-name" :class="{ winner: match.result != 'tie' && match.team2 == match.winner }">{{ match.team2 }}</p>
+				<p class="team-name" :class="{ winner: match.result != 'no result' && match.team2 == match.winner }">{{ match.team2 }}</p>
 			</div>
 		</div>
 		<div class="info-container">
@@ -18,8 +18,12 @@
 				<div class="info-item success centered" v-if="match.win_by_runs > 0">{{ match.winner }} won by {{ match.win_by_runs }} runs</div>
 				<div class="info-item success centered" v-else-if="match.win_by_wickets > 0">{{ match.winner }} won by {{ match.win_by_wickets }} wickets</div>
 			</div>
-			<div v-else>
+			<div v-else-if="match.result == 'tie'">
 				<div class="info-item accent centered">Match was a Tie</div>
+				<div class="info-item success centered">{{ match.winner }} won in super over</div>
+			</div>
+			<div v-else>
+				<div class="info-item dark centered">Match had no result</div>
 			</div>
 			<div class="row" :class="{ 'mx-0': opened }">
 				<div class="date">

@@ -8,7 +8,8 @@ $theme-colors: (
 	"danger": $danger,
 	"secondary": $secondary,
 	"warning": $warning,
-	"dark": $dark
+	"info": $info,
+	"dark": $dark,
 );
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
@@ -69,21 +70,24 @@ $theme-colors: (
 		color: $warning;
 		background: rgba($warning, 0.1);
 	}
+	&.dark {
+		color: $dark;
+		background: rgba($dark, 0.1);
+	}
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba($dark, 0.1);
-}
-
-::-webkit-scrollbar-thumb {
-	background: lighten($dark, 40%);
-	border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: lighten($dark, 30%);
+@media (pointer: fine) { 
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+	::-webkit-scrollbar-track {
+		background: rgba($dark, 0.1);
+	}
+	::-webkit-scrollbar-thumb {
+		background: lighten($dark, 40%);
+		border-radius: 2px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: lighten($dark, 30%);
+	}
 }

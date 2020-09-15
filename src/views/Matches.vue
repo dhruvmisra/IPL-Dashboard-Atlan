@@ -25,6 +25,7 @@
 					<option value="all">All</option>
 					<option value="normal">Normal</option>
 					<option value="tie">Tie</option>
+					<option value="no result">No Result</option>
 				</select>
 			</div>
 		</div>

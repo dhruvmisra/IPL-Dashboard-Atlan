@@ -34,38 +34,30 @@ export const computeAllTrivia = (matches, teams) => {
 	// 5. teamsPerformance
 	let performance = {};
 	// 6. LongestStreaks
-	let streaks = {
-		// "Mumbai Indians": {
-		// 	winning: 2,
-		// 	losing: 1,
-		// 	currentlyWinnig: 0,
-		// 	currentlyLosing: 1,
-		// 	season: 2017
-		// }
-	};
+	let streaks = {};
 
-	
+
 	matches.sort((a, b) => a.date - b.date);
 	/*------------ MAIN LOOP ----------------- */
-	for(let match of matches) {
+	for (let match of matches) {
 		// 1. maxMarginOfVictories
-		if(!maxMargin.runs.hasOwnProperty(match.season) && match.win_by_runs > 0) {
+		if (!maxMargin.runs.hasOwnProperty(match.season) && match.win_by_runs > 0) {
 			maxMargin.runs[match.season] = match.win_by_runs;
 			continue;
 		}
-		if(!maxMargin.wickets.hasOwnProperty(match.season) && match.win_by_wickets > 0) {
+		if (!maxMargin.wickets.hasOwnProperty(match.season) && match.win_by_wickets > 0) {
 			maxMargin.wickets[match.season] = match.win_by_wickets;
 			continue;
 		}
-		if(maxMargin.runs[match.season] < match.win_by_runs) {
+		if (maxMargin.runs[match.season] < match.win_by_runs) {
 			maxMargin.runs[match.season] = match.win_by_runs;
 		}
-		if(maxMargin.wickets[match.season] < match.win_by_wickets) {
+		if (maxMargin.wickets[match.season] < match.win_by_wickets) {
 			maxMargin.wickets[match.season] = match.win_by_wickets;
 		}
 
 		// 2. wonTossWonMatch
-		if(match.toss_winner == match.winner) {
+		if (match.toss_winner == match.winner) {
 			wonMatchCount++;
 			tossDecision[match.toss_decision].wins++;
 		} else {
@@ -73,12 +65,12 @@ export const computeAllTrivia = (matches, teams) => {
 		}
 
 		// 3. mostTimesMOTMTrivia
-		if(!MOTMCount.hasOwnProperty(match.player_of_match)) {
+		if (!MOTMCount.hasOwnProperty(match.player_of_match)) {
 			MOTMCount[match.player_of_match] = 1;
 			continue;
 		}
 		MOTMCount[match.player_of_match]++;
-		if(MOTMCount[match.player_of_match] > mostTimesMOTM.count) {
+		if (MOTMCount[match.player_of_match] > mostTimesMOTM.count) {
 			mostTimesMOTM = {
 				player: match.player_of_match,
 				count: MOTMCount[match.player_of_match]
@@ -86,12 +78,12 @@ export const computeAllTrivia = (matches, teams) => {
 		}
 
 		// 4. mostPlayedInVenueTrivia
-		if(!venueCount.hasOwnProperty(match.venue)) {
+		if (!venueCount.hasOwnProperty(match.venue)) {
 			venueCount[match.venue] = 1;
 			continue;
 		}
 		venueCount[match.venue]++;
-		if(venueCount[match.venue] > mostPlayedInVenue.count) {
+		if (venueCount[match.venue] > mostPlayedInVenue.count) {
 			mostPlayedInVenue = {
 				player: match.venue,
 				count: venueCount[match.venue]
@@ -99,27 +91,28 @@ export const computeAllTrivia = (matches, teams) => {
 		}
 
 		// 5. teamsPerformance
-		if(!performance.hasOwnProperty(match.season)) {
-			performance[match.season] = {
-				total: 0,
-				teams: {}
-			}
-			for(let team of teams) {
-				performance[match.season].teams[team] = 0;
+		if (!performance.hasOwnProperty(match.season)) {
+			performance[match.season] = {};
+			for (let team of teams) {
+				performance[match.season][team] = {
+					total: 0,
+					won: 0
+				}
 			}
 		}
-		performance[match.season].total++;
-		if(match.result == 'normal') {
-			if(match.team1 == match.winner) {
-				performance[match.season].teams[match.team1]++;
+		performance[match.season][match.team1].total++;
+		performance[match.season][match.team2].total++;
+		if (match.result != 'no result') {
+			if (match.team1 == match.winner) {
+				performance[match.season][match.team1].won++;
 			} else {
-				performance[match.season].teams[match.team2]++;
+				performance[match.season][match.team2].won++;
 			}
 		}
 
 		// 6. longestStreaks
 		// Null check
-		if(!streaks.hasOwnProperty(match.team1)) {
+		if (!streaks.hasOwnProperty(match.team1)) {
 			streaks[match.team1] = {
 				winning: 0,
 				losing: 0,
@@ -128,7 +121,7 @@ export const computeAllTrivia = (matches, teams) => {
 				season: match.season
 			}
 		}
-		if(!streaks.hasOwnProperty(match.team2)) {
+		if (!streaks.hasOwnProperty(match.team2)) {
 			streaks[match.team2] = {
 				winning: 0,
 				losing: 0,
@@ -138,28 +131,28 @@ export const computeAllTrivia = (matches, teams) => {
 			}
 		}
 		// Season check
-		if(streaks[match.team1].season != match.season) {
-			if(streaks[match.team1].currentlyWinning > 0) {
-				streaks[match.team1].winning = Math.max(streaks[match.team1].winning, streaks[match.team1].currentlyWinning+1);
+		if (streaks[match.team1].season != match.season) {
+			if (streaks[match.team1].currentlyWinning > 0) {
+				streaks[match.team1].winning = Math.max(streaks[match.team1].winning, streaks[match.team1].currentlyWinning + 1);
 			} else {
-				streaks[match.team1].losing = Math.max(streaks[match.team1].losing, streaks[match.team1].currentlyLosing+1);
+				streaks[match.team1].losing = Math.max(streaks[match.team1].losing, streaks[match.team1].currentlyLosing + 1);
 			}
 			streaks[match.team1].currentlyWinning = 0;
 			streaks[match.team1].currentlyLosing = 0;
 			streaks[match.team1].season = match.season;
 		}
-		if(streaks[match.team2].season != match.season) {
-			if(streaks[match.team2].currentlyWinning > 0) {
-				streaks[match.team2].winning = Math.max(streaks[match.team2].winning, streaks[match.team2].currentlyWinning+1);
+		if (streaks[match.team2].season != match.season) {
+			if (streaks[match.team2].currentlyWinning > 0) {
+				streaks[match.team2].winning = Math.max(streaks[match.team2].winning, streaks[match.team2].currentlyWinning + 1);
 			} else {
-				streaks[match.team2].losing = Math.max(streaks[match.team2].losing, streaks[match.team2].currentlyLosing+1);
+				streaks[match.team2].losing = Math.max(streaks[match.team2].losing, streaks[match.team2].currentlyLosing + 1);
 			}
 			streaks[match.team2].currentlyWinning = 0;
 			streaks[match.team2].currentlyLosing = 0;
 			streaks[match.team2].season = match.season;
 		}
-		if(match.result == "normal") {
-			if(match.winner == match.team1) {
+		if (match.result != "no result") {
+			if (match.winner == match.team1) {
 				// Team 1 won
 				streaks[match.team1].currentlyWinning++;
 				streaks[match.team1].currentlyLosing = 0;
@@ -240,7 +233,7 @@ const maxMarginOfVictories = (maxMargin) => {
 			scales: {
 				yAxes: [{
 					ticks: {
-						precision:0
+						precision: 0
 					}
 				}],
 				xAxes: [{
@@ -257,7 +250,7 @@ const maxMarginOfVictories = (maxMargin) => {
 	return trivia;
 }
 
-const wonTossWonMatch = (wonMatchCount, tossDecision, matchesLength) => {				
+const wonTossWonMatch = (wonMatchCount, tossDecision, matchesLength) => {
 	let trivia = {
 		title: "Outcome after Winning Toss",
 		info: `<p class="text-secondary my-5">Overall the outcome of both winning and losing the toss is pretty close.
@@ -270,7 +263,7 @@ const wonTossWonMatch = (wonMatchCount, tossDecision, matchesLength) => {
 			labels: ["Won match", "Lost match"],
 			datasets: [{
 				label: '',
-				data: [wonMatchCount, matchesLength-wonMatchCount],
+				data: [wonMatchCount, matchesLength - wonMatchCount],
 				backgroundColor: [variables.primaryColor, variables.dangerColor]
 			}]
 		},
@@ -317,12 +310,12 @@ const wonTossWonMatch = (wonMatchCount, tossDecision, matchesLength) => {
 }
 
 const mostTimesMOTMTrivia = (MOTMCount, mostTimesMOTM) => {
-	for(let key in MOTMCount) {
-		if(MOTMCount[key] <= 5) {
+	for (let key in MOTMCount) {
+		if (MOTMCount[key] <= 5) {
 			delete MOTMCount[key];
 		}
 	}
-	
+
 	let trivia = {
 		title: "Man of the Match Awards",
 		info: `<div class="info-item centered accent">Player with most Man of the Match awards: <span style="font-weight: 600">${mostTimesMOTM.player} (${mostTimesMOTM.count})</span></div>`,
@@ -355,17 +348,17 @@ const mostTimesMOTMTrivia = (MOTMCount, mostTimesMOTM) => {
 			}
 		}
 	});
-	
+
 	return trivia;
 }
 
 const mostPlayedInVenueTrivia = (venueCount, mostPlayedInVenue) => {
-	for(let key in venueCount) {
-		if(venueCount[key] <= 5) {
+	for (let key in venueCount) {
+		if (venueCount[key] <= 5) {
 			delete venueCount[key];
 		}
 	}
-	
+
 	let trivia = {
 		title: "Most Played-In Venues",
 		info: `<div class="info-item centered accent">The most played-in venue: 
@@ -392,7 +385,7 @@ const mostPlayedInVenueTrivia = (venueCount, mostPlayedInVenue) => {
 						labelString: 'Venue'
 					},
 					ticks: {
-						callback: function(value) {
+						callback: function (value) {
 							return value.substr(0, 12) + "...";
 						},
 					}
@@ -400,8 +393,8 @@ const mostPlayedInVenueTrivia = (venueCount, mostPlayedInVenue) => {
 			}
 		}
 	});
-	
-	
+
+
 	return trivia;
 }
 
@@ -415,8 +408,8 @@ const teamsPerformance = (performance, teams) => {
 	let entries = Object.entries(performance);
 	let colorIndex = 0;
 	let colors = [variables.primaryColor, variables.accentColor, variables.dangerColor, variables.successColor, variables.infoColor];
-	
-	for(let team of teams) {
+
+	for (let team of teams) {
 		let color = colors[colorIndex++];
 		colorIndex %= colors.length;
 
@@ -426,7 +419,7 @@ const teamsPerformance = (performance, teams) => {
 				labels: Object.keys(performance),
 				datasets: [{
 					label: 'Matches won',
-					data: entries.map(entry => Math.round(entry[1].teams[team]/entry[1].total*100)),
+					data: entries.map(entry => Math.round(entry[1][team].won / (entry[1][team].total != 0 ? entry[1][team].total : 1) * 100)),
 					borderColor: color,
 					backgroundColor: color,
 					borderWidth: 1
@@ -441,15 +434,15 @@ const teamsPerformance = (performance, teams) => {
 				},
 				tooltips: {
 					callbacks: {
-						label: function(tooltipItems, data) {
-							return data.datasets[tooltipItems.datasetIndex].label +': ' + tooltipItems.yLabel + '%';
+						label: function (tooltipItems, data) {
+							return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.yLabel + '%';
 						}
 					}
 				},
 				scales: {
 					yAxes: [{
 						ticks: {
-							callback: function(label, index, labels) {
+							callback: function (label, index, labels) {
 								return label + '%';
 							}
 						}
@@ -459,7 +452,7 @@ const teamsPerformance = (performance, teams) => {
 			customClass: 'team-performance'
 		});
 	}
-	
+
 	return trivia;
 }
 
@@ -474,14 +467,14 @@ const longestStreaks = (streaks) => {
 		count: 0
 	}
 
-	for(let team in streaks) {
-		if(longestWinning.count < streaks[team].winning) {
+	for (let team in streaks) {
+		if (longestWinning.count < streaks[team].winning) {
 			longestWinning = {
 				team: team,
 				count: streaks[team].winning
 			}
 		}
-		if(longestLosing.count < streaks[team].losing) {
+		if (longestLosing.count < streaks[team].losing) {
 			longestLosing = {
 				team: team,
 				count: streaks[team].losing
@@ -536,7 +529,7 @@ const longestStreaks = (streaks) => {
 						labelString: 'Teams'
 					},
 					ticks: {
-						callback: function(value) {
+						callback: function (value) {
 							return value.substr(0, 12) + "...";
 						},
 					}

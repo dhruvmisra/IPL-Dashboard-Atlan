@@ -4,11 +4,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IPL-Dashboard-Atlan/404.html"
   },
   {
-    "revision": "5e056487b2cb040af7f4",
-    "url": "/IPL-Dashboard-Atlan/css/app.1a2add30.css"
+    "revision": "184330f443d65d50a3b9",
+    "url": "/IPL-Dashboard-Atlan/css/app.e14a6de0.css"
   },
   {
-    "revision": "75489d4251feb3f6f129",
+    "revision": "c0480434631ffce68964",
     "url": "/IPL-Dashboard-Atlan/css/chunk-vendors.ac0834e4.css"
   },
   {
@@ -104,16 +104,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IPL-Dashboard-Atlan/img/trivia.53e49caa.svg"
   },
   {
-    "revision": "30103960ec3d2fd1ae218f4cca09285e",
+    "revision": "10706d141baea501c7c0118bedbc08e3",
     "url": "/IPL-Dashboard-Atlan/index.html"
   },
   {
-    "revision": "5e056487b2cb040af7f4",
-    "url": "/IPL-Dashboard-Atlan/js/app.50ee35b7.js"
+    "revision": "184330f443d65d50a3b9",
+    "url": "/IPL-Dashboard-Atlan/js/app.e712c39d.js"
   },
   {
-    "revision": "75489d4251feb3f6f129",
-    "url": "/IPL-Dashboard-Atlan/js/chunk-vendors.b901c2e4.js"
+    "revision": "c0480434631ffce68964",
+    "url": "/IPL-Dashboard-Atlan/js/chunk-vendors.3790e592.js"
   },
   {
     "revision": "02a86072abbe4fc7bdcc72dac52df778",

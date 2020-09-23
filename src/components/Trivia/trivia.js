@@ -43,16 +43,12 @@ export const computeAllTrivia = (matches, teams) => {
 		// 1. maxMarginOfVictories
 		if (!maxMargin.runs.hasOwnProperty(match.season) && match.win_by_runs > 0) {
 			maxMargin.runs[match.season] = match.win_by_runs;
-			continue;
+		} else if (maxMargin.runs[match.season] < match.win_by_runs) {
+			maxMargin.runs[match.season] = match.win_by_runs;
 		}
 		if (!maxMargin.wickets.hasOwnProperty(match.season) && match.win_by_wickets > 0) {
 			maxMargin.wickets[match.season] = match.win_by_wickets;
-			continue;
-		}
-		if (maxMargin.runs[match.season] < match.win_by_runs) {
-			maxMargin.runs[match.season] = match.win_by_runs;
-		}
-		if (maxMargin.wickets[match.season] < match.win_by_wickets) {
+		} else if (maxMargin.wickets[match.season] < match.win_by_wickets) {
 			maxMargin.wickets[match.season] = match.win_by_wickets;
 		}
 
@@ -66,8 +62,7 @@ export const computeAllTrivia = (matches, teams) => {
 
 		// 3. mostTimesMOTMTrivia
 		if (!MOTMCount.hasOwnProperty(match.player_of_match)) {
-			MOTMCount[match.player_of_match] = 1;
-			continue;
+			MOTMCount[match.player_of_match] = 0;
 		}
 		MOTMCount[match.player_of_match]++;
 		if (MOTMCount[match.player_of_match] > mostTimesMOTM.count) {
@@ -79,8 +74,7 @@ export const computeAllTrivia = (matches, teams) => {
 
 		// 4. mostPlayedInVenueTrivia
 		if (!venueCount.hasOwnProperty(match.venue)) {
-			venueCount[match.venue] = 1;
-			continue;
+			venueCount[match.venue] = 0;
 		}
 		venueCount[match.venue]++;
 		if (venueCount[match.venue] > mostPlayedInVenue.count) {
